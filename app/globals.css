@@ -31,17 +31,19 @@ body {
 .boton-agregar {
   position: fixed;
   bottom: 2rem;
-  right: 2rem;
+  right: 1rem;
   z-index: 9999;
   background-color: #ec4899;
   color: white;
-  font-weight: 500;
-  padding: 0.75rem 1.25rem;
+  font-weight: 700;
+  padding: 0.875rem 1.25rem;
   border-radius: 9999px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  box-shadow: 0 4px 12px rgba(236,72,153,0.4);
   font-size: 0.875rem;
   border: none;
   cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
 }
 
 .boton-agregar:hover {
@@ -64,4 +66,40 @@ input[type="checkbox"] {
 
 .bg-white * {
   color: #111827 !important;
+}
+/* Responsive móvil */
+@media (max-width: 640px) {
+  .leaflet-container {
+    z-index: 1;
+  }
+
+  .leaflet-popup-content {
+    margin: 10px 12px;
+    min-width: 160px !important;
+    max-width: 220px !important;
+  }
+
+  .leaflet-popup-content-wrapper {
+    border-radius: 16px !important;
+  }
+}/* Safe area para móvil */
+@supports (padding-top: env(safe-area-inset-top)) {
+  .barra-superior {
+    padding-top: calc(10px + env(safe-area-inset-top));
+  }
+}
+/* Evitar zoom en iOS al tocar inputs */
+input, select, textarea {
+  font-size: 16px !important;
+}
+/* Estabilizar barra en iOS */
+.barra-superior {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
 }

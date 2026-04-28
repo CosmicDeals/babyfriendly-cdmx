@@ -45,13 +45,17 @@ export default function Buscador({ onUbicacion }: { onUbicacion: (lat: number, l
           value={query}
           onChange={e => setQuery(e.target.value)}
           onKeyDown={handleKeyDown}
+          onBlur={() => {
+            window.scrollTo(0, 0)
+            document.body.scrollTop = 0
+         }}
           placeholder="Busca una zona... ej: Coyoacán"
           style={{
             flex: 1,
             border: '1.5px solid #e5e7eb',
             borderRadius: 20,
             padding: '8px 14px',
-            fontSize: 13,
+            fontSize: 16,
             color: '#111',
             background: '#fff',
             outline: 'none',

@@ -51,12 +51,10 @@ export default function Map() {
     const { data, error } = await supabase
       .from('lugares')
       .select('*, instalaciones(*)')
-
     if (error) {
       console.error('Error cargando lugares:', JSON.stringify(error))
       return
     }
-
     if (data) setLugares(data)
   }
 
@@ -80,8 +78,20 @@ export default function Map() {
     }
   }
 
+  function handleGeolocalizacion() {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (pos) => {
+          if (mapRef.current) {
+            mapRef.current.setView([pos.coords.latitude, pos.coords.longitude], 15)
+          }
+        },
+        () => alert('No pudimos obtener tu ubicación')
+      )
+    }
+  }
+
   const lugaresFiltrados = lugares.filter(lugar => {
-    // Filtro por área visible
     if (bounds) {
       const { _southWest: sw, _northEast: ne } = bounds
       if (
@@ -89,8 +99,6 @@ export default function Map() {
         lugar.longitud < sw.lng || lugar.longitud > ne.lng
       ) return false
     }
-
-    // Filtro por instalaciones
     if (filtrosActivos.length === 0) return true
     const inst = lugar.instalaciones?.[0]
     if (!inst) return false
@@ -98,18 +106,19 @@ export default function Map() {
   })
 
   const iconoEstrella = typeof window !== 'undefined'
-  ? require('leaflet').divIcon({
-      className: '',
-      html: `<div style="font-size:28px;line-height:1;color:#ec4899;filter:drop-shadow(0 2px 4px rgba(0,0,0,0.3))">★</div>`,
-      iconSize: [32, 32],
-      iconAnchor: [16, 16],
-      popupAnchor: [0, -16],
-    })
-  : null
+    ? require('leaflet').divIcon({
+        className: '',
+        html: `<div style="font-size:28px;line-height:1;color:#ec4899;filter:drop-shadow(0 2px 4px rgba(0,0,0,0.3))">★</div>`,
+        iconSize: [32, 32],
+        iconAnchor: [16, 16],
+        popupAnchor: [0, -16],
+      })
+    : null
 
   return (
     <>
-      <div style={{ position: 'fixed', top: 0, left: 0, right: 0, zIndex: 1000, background: '#fff', padding: '10px 12px', boxShadow: '0 2px 8px rgba(0,0,0,0.1)' }}>
+      {/* Barra superior */}
+      <div className="barra-superior" style={{ position: 'fixed', top: 0, left: 0, right: 0, zIndex: 1000, background: '#fff', padding: '10px 12px', boxShadow: '0 2px 8px rgba(0,0,0,0.1)' }}>
         <Buscador onUbicacion={handleUbicacion} />
         <div style={{ marginTop: 8 }}>
           <Filtros filtrosActivos={filtrosActivos} onToggle={toggleFiltro} />
@@ -121,7 +130,8 @@ export default function Map() {
         )}
       </div>
 
-      <div style={{ paddingTop: 110 }} className="w-full h-screen">
+      {/* Mapa */}
+      <div style={{ paddingTop: 110, width: '100%', height: '100vh' }}>
         <MapContainer
           center={[19.4326, -99.1332]}
           zoom={13}
@@ -199,15 +209,41 @@ export default function Map() {
             </Marker>
           ))}
         </MapContainer>
-
-        <button
-          onClick={() => setMostrarFormulario(true)}
-          className="boton-agregar"
-        >
-          + Agregar lugar
-        </button>
       </div>
 
+      {/* Botones flotantes */}
+      <button
+        onClick={() => setMostrarFormulario(true)}
+        className="boton-agregar"
+      >
+        + Agregar lugar
+      </button>
+
+      <button
+        onClick={handleGeolocalizacion}
+        style={{
+          position: 'fixed',
+          bottom: '8rem',
+          right: '1rem',
+          zIndex: 99999,
+          background: '#fff',
+          border: '2px solid #ec4899',
+          borderRadius: '9999px',
+          width: 44,
+          height: 44,
+          fontSize: 20,
+          cursor: 'pointer',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          boxShadow: '0 4px 12px rgba(0,0,0,0.15)',
+          touchAction: 'manipulation',
+        }}
+      >
+        GPS
+      </button>
+
+      {/* Modales */}
       {mostrarFormulario && (
         <FormularioLugar
           onCerrar={() => {
