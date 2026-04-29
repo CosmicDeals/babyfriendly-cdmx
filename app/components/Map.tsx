@@ -48,6 +48,7 @@ export default function Map() {
   const [filtrosActivos, setFiltrosActivos] = useState<string[]>([])
   const [bounds, setBounds] = useState<any>(null)
   const mapRef = useRef<any>(null)
+  const [mostrarAbout, setMostrarAbout] = useState(false)
 
   async function cargarLugares() {
     const { data, error } = await supabase
@@ -281,6 +282,25 @@ export default function Map() {
     onCerrar={() => setLugarReportando(null)}
   />
 )}
+    {/* Botón About + Ko-fi */}
+      <div style={{ position: 'fixed', bottom: '1rem', left: '1rem', zIndex: 9999 }}>
+        <div
+          onClick={() => setMostrarAbout(!mostrarAbout)}
+          style={{ background: 'white', border: '1.5px solid #f3f4f6', borderRadius: 9999, padding: '8px 14px', fontSize: 12, color: '#555', cursor: 'pointer', boxShadow: '0 2px 8px rgba(0,0,0,0.1)', display: 'flex', alignItems: 'center', gap: 6 }}
+        >
+          ℹ️ Sobre este proyecto
+        </div>
+        {mostrarAbout && (
+          <div style={{ position: 'absolute', bottom: 44, left: 0, width: 240, background: 'white', borderRadius: 16, padding: 14, boxShadow: '0 4px 20px rgba(0,0,0,0.15)', border: '1px solid #f3f4f6' }}>
+            <p style={{ fontSize: 12, color: '#555', lineHeight: 1.6, marginBottom: 10 }}>
+              Porque moverse con tus hijos en la ciudad no debería ser complicado. <strong>Esta plataforma es gratuita y hecha en comunidad.</strong> Si te es útil, considera apoyarnos.
+            </p>
+            <a href="https://ko-fi.com" target="_blank" rel="noopener noreferrer" style={{ display: 'block', background: '#ec4899', color: 'white', border: 'none', borderRadius: 20, padding: '8px 16px', fontSize: 12, fontWeight: 700, cursor: 'pointer', textAlign: 'center', textDecoration: 'none' }}>
+              ☕ Apóyanos en Ko-fi
+            </a>
+          </div>
+        )}
+      </div>
     </>
   )
 }
