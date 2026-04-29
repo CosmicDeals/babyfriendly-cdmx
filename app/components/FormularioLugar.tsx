@@ -34,6 +34,9 @@ export default function FormularioLugar({ onCerrar }: { onCerrar: () => void }) 
   const [longitud, setLongitud] = useState<number | null>(null)
   const [direccion, setDireccion] = useState('')
   const [detalles, setDetalles] = useState('')
+  const [busquedaDireccion, setBusquedaDireccion] = useState('')
+  const [opcionesDireccion, setOpcionesDireccion] = useState<any[]>([])
+  const [centroMapa, setCentroMapa] = useState<[number, number] | undefined>(undefined)
   const [instalaciones, setInstalaciones] = useState<Record<string, boolean>>({})
   const [cargando, setCargando] = useState(false)
   const [exito, setExito] = useState(false)
@@ -45,18 +48,49 @@ export default function FormularioLugar({ onCerrar }: { onCerrar: () => void }) 
   async function obtenerDireccion(lat: number, lng: number) {
     try {
       const res = await fetch(
-        `https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lng}&format=json&accept-language=es`
+        `https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lng}&format=json&accept-language=es&zoom=18&addressdetails=1`
       )
       const data = await res.json()
-      setDireccion(data.display_name || '')
+      const a = data.address
+      const partes = [
+        a.road,
+        a.house_number,
+        a.neighbourhood || a.suburb || a.quarter,
+        a.city || a.town || a.municipality,
+      ].filter(Boolean)
+      setDireccion(partes.join(', '))
     } catch {
       setDireccion('')
     }
   }
 
-  function handleMapClick() {
-    // Se maneja desde el componente MapSelector
+  async function buscarDireccion() {
+  if (!busquedaDireccion.trim()) return
+  try {
+    const res = await fetch(
+      `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(busquedaDireccion + ' Ciudad de Mexico')}&format=json&limit=5&accept-language=es`
+    )
+    const data = await res.json()
+    if (data.length > 0) {
+      setOpcionesDireccion(data)
+    } else {
+      alert('No encontramos esa dirección, intenta con más detalle')
+    }
+  } catch {
+    alert('Error al buscar la dirección')
   }
+}
+
+function seleccionarOpcion(opcion: any) {
+  const lat = parseFloat(opcion.lat)
+  const lng = parseFloat(opcion.lon)
+  setLatitud(lat)
+  setLongitud(lng)
+  setCentroMapa([lat, lng])
+  obtenerDireccion(lat, lng)
+  setOpcionesDireccion([])
+  setBusquedaDireccion(opcion.display_name.split(',').slice(0, 2).join(','))
+}
 
   async function handleSubmit() {
     if (!nombre || !tipo || !latitud || !longitud) {
@@ -83,16 +117,17 @@ export default function FormularioLugar({ onCerrar }: { onCerrar: () => void }) 
     }
 
     await supabase.from('instalaciones').insert([{
-  lugar_id: data[0].id,
-  cambiador_bebe: instalaciones.cambiador_bebe || false,
-  sillas_bebe: instalaciones.sillas_bebe || false,
-  lactario: instalaciones.lactario || false,
-  area_juegos: instalaciones.area_juegos || false,
-  nineras: instalaciones.nineras || false,
-  menu_infantil: instalaciones.menu_infantil || false,
-  accesibilidad: instalaciones.accesibilidad || false,
-  estacionamiento_accesible: instalaciones.estacionamiento || false,
-}])
+      lugar_id: data[0].id,
+      cambiador_bebe: instalaciones.cambiador_bebe || false,
+      sillas_bebe: instalaciones.sillas_bebe || false,
+      lactario: instalaciones.lactario || false,
+      area_juegos: instalaciones.area_juegos || false,
+      nineras: instalaciones.nineras || false,
+      menu_infantil: instalaciones.menu_infantil || false,
+      accesibilidad: instalaciones.accesibilidad || false,
+      estacionamiento_accesible: instalaciones.estacionamiento || false,
+    }])
+
     setCargando(false)
     setExito(true)
     setTimeout(() => onCerrar(), 2000)
@@ -135,7 +170,7 @@ export default function FormularioLugar({ onCerrar }: { onCerrar: () => void }) 
                     value={nombre}
                     onChange={e => setNombre(e.target.value)}
                     placeholder="Nombre del lugar (ej: Café Toscano)"
-                    style={{ width: '100%', border: '1.5px solid #d1d5db', borderRadius: 12, padding: '11px 13px', fontSize: 14, color: '#111', background: '#fff', outline: 'none' }}
+                    style={{ width: '100%', border: '1.5px solid #d1d5db', borderRadius: 12, padding: '11px 13px', fontSize: 16, color: '#111', background: '#fff', outline: 'none' }}
                   />
                   <div style={{ fontSize: 12, color: '#777' }}>¿Qué tipo de lugar es?</div>
                   <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8 }}>
@@ -163,33 +198,58 @@ export default function FormularioLugar({ onCerrar }: { onCerrar: () => void }) 
 
               {/* Paso 2 */}
               {paso === 2 && (
-  <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
     <div style={{ fontSize: 15, fontWeight: 700, color: '#111' }}>¿Dónde está? 🗺️</div>
-    <div style={{ fontSize: 12, color: '#777' }}>Toca el mapa para marcar — la dirección aparece sola</div>
+    <div style={{ fontSize: 12, color: '#777' }}>Marca la ubicación en el mapa y escribe la dirección</div>
+
+    {/* Botón geolocalización */}
+    <button
+      onClick={() => {
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(
+            (pos) => {
+              const lat = pos.coords.latitude
+              const lng = pos.coords.longitude
+              setLatitud(lat)
+              setLongitud(lng)
+              setCentroMapa([lat, lng])
+            },
+            () => alert('No pudimos obtener tu ubicación')
+          )
+        }
+      }}
+      style={{ width: '100%', border: 'none', borderRadius: 12, padding: '10px', fontSize: 13, fontWeight: 600, color: '#ec4899', background: '#fdf2f8', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6 }}
+    >
+      &#x1F4CD; Usar mi ubicación actual
+    </button>
+
+    {/* Mapa */}
     <MapSelector
       onUbicacionSeleccionada={(lat, lng) => {
         setLatitud(lat)
         setLongitud(lng)
-        obtenerDireccion(lat, lng)
       }}
+      centro={centroMapa}
+      pinInicial={latitud && longitud ? { lat: latitud, lng: longitud } : null}
     />
-    {direccion && (
-      <div style={{ background: '#f0fdf4', border: '1.5px solid #86efac', borderRadius: 12, padding: '10px 12px', display: 'flex', alignItems: 'center', gap: 8 }}>
-        <span style={{ fontSize: 18 }}>✅</span>
-        <div>
-          <div style={{ fontSize: 11, fontWeight: 700, color: '#15803d' }}>Dirección detectada</div>
-          <div style={{ fontSize: 11, color: '#166534' }}>{direccion}</div>
-        </div>
-      </div>
-    )}
+
+    {/* Dirección manual */}
+    <input
+      value={direccion}
+      onChange={e => setDireccion(e.target.value)}
+      placeholder="Escribe la dirección (ej: Orizaba 42, Roma Norte)"
+      style={{ width: '100%', border: '1.5px solid #d1d5db', borderRadius: 12, padding: '11px 13px', fontSize: 16, color: '#111', background: '#fff', outline: 'none' }}
+    />
+
     <input
       value={detalles}
       onChange={e => setDetalles(e.target.value)}
       placeholder="Detalles extra (opcional, ej: piso 2)"
-      style={{ width: '100%', border: '1.5px solid #d1d5db', borderRadius: 12, padding: '11px 13px', fontSize: 14, color: '#111', background: '#fff', outline: 'none' }}
+      style={{ width: '100%', border: '1.5px solid #d1d5db', borderRadius: 12, padding: '11px 13px', fontSize: 16, color: '#111', background: '#fff', outline: 'none' }}
     />
   </div>
 )}
+
               {/* Paso 3 */}
               {paso === 3 && (
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>

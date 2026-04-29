@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import dynamic from 'next/dynamic'
 
 const MapContainer = dynamic(
@@ -19,32 +19,43 @@ const ClickHandlerDynamic = dynamic(
   () => import('./ClickHandler'),
   { ssr: false }
 )
+const CentroHandler = dynamic(
+  () => import('./CentroHandler'),
+  { ssr: false }
+)
 
-export default function MapSelector({
-  onUbicacionSeleccionada
-}: {
+type Props = {
   onUbicacionSeleccionada: (lat: number, lng: number) => void
-}) {
-  const [pin, setPin] = useState<{ lat: number; lng: number } | null>(null)
+  centro?: [number, number]
+  pinInicial?: { lat: number; lng: number } | null
+}
+
+export default function MapSelector({ onUbicacionSeleccionada, centro, pinInicial }: Props) {
+  const [pin, setPin] = useState<{ lat: number; lng: number } | null>(pinInicial || null)
 
   function handleClic(lat: number, lng: number) {
     setPin({ lat, lng })
     onUbicacionSeleccionada(lat, lng)
   }
 
+  useEffect(() => {
+    if (pinInicial) setPin(pinInicial)
+  }, [pinInicial])
+
   return (
-    <div style={{ borderRadius: 12, overflow: 'hidden', border: '1.5px solid #6ee7b7', height: 150, position: 'relative' }}>
+    <div style={{ borderRadius: 12, overflow: 'hidden', border: '1.5px solid #6ee7b7', height: 180, position: 'relative' }}>
       <MapContainer
         center={[19.4326, -99.1332]}
         zoom={13}
         style={{ height: '100%', width: '100%' }}
-        zoomControl={false}
+        zoomControl={true}
       >
         <TileLayer
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           attribution='&copy; OpenStreetMap'
         />
         <ClickHandlerDynamic onClic={handleClic} />
+        <CentroHandler centro={centro} />
         {pin && <Marker position={[pin.lat, pin.lng]} />}
       </MapContainer>
       {!pin && (
@@ -58,7 +69,7 @@ export default function MapSelector({
           zIndex: 999
         }}>
           <span style={{ background: 'white', borderRadius: 20, padding: '6px 14px', fontSize: 12, fontWeight: 600, color: '#065f46', boxShadow: '0 2px 8px rgba(0,0,0,0.15)' }}>
-            👆 Toca para marcar la ubicación
+            👆 Toca el mapa para marcar
           </span>
         </div>
       )}

@@ -7,6 +7,7 @@ import FormularioLugar from './FormularioLugar'
 import EditarInstalaciones from './EditarInstalaciones'
 import Buscador from './Buscador'
 import Filtros from './Filtros'
+import ReportarLugar from './ReportarLugar'
 
 const MapContainer = dynamic(
   () => import('react-leaflet').then(mod => mod.MapContainer),
@@ -43,6 +44,7 @@ export default function Map() {
   const [lugares, setLugares] = useState<Lugar[]>([])
   const [mostrarFormulario, setMostrarFormulario] = useState(false)
   const [lugarEditando, setLugarEditando] = useState<Lugar | null>(null)
+  const [lugarReportando, setLugarReportando] = useState<Lugar | null>(null)
   const [filtrosActivos, setFiltrosActivos] = useState<string[]>([])
   const [bounds, setBounds] = useState<any>(null)
   const mapRef = useRef<any>(null)
@@ -204,6 +206,13 @@ export default function Map() {
                   >
                     Editar instalaciones
                   </button>
+                  <button
+                    onClick={() => setLugarReportando(lugar)}
+                    style={{ width: '100%', border: '1.5px solid #d1d5db', borderRadius: 8, padding: '6px 0', fontSize: 12, fontWeight: 600, color: '#6b7280', background: '#fff', cursor: 'pointer' }}
+                  >
+                    🚩 Reportar lugar
+                  </button>
+
                 </div>
               </Popup>
             </Marker>
@@ -240,7 +249,7 @@ export default function Map() {
           touchAction: 'manipulation',
         }}
       >
-        GPS
+        &#x1F4CD;
       </button>
 
       {/* Modales */}
@@ -264,6 +273,14 @@ export default function Map() {
           }}
         />
       )}
+      
+      {lugarReportando && (
+  <ReportarLugar
+    lugarId={lugarReportando.id}
+    nombreLugar={lugarReportando.nombre}
+    onCerrar={() => setLugarReportando(null)}
+  />
+)}
     </>
   )
 }
