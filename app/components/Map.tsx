@@ -295,7 +295,7 @@ export default function Map() {
             <p style={{ fontSize: 12, color: '#555', lineHeight: 1.6, marginBottom: 10 }}>
               Porque moverse con tus hijos en la ciudad no debería ser complicado. <strong>Esta plataforma es gratuita y hecha en comunidad.</strong> Si te es útil, considera apoyarnos.
             </p>
-            <a href="https://ko-fi.com" target="_blank" rel="noopener noreferrer" style={{ display: 'block', background: '#ec4899', color: 'white', border: 'none', borderRadius: 20, padding: '8px 16px', fontSize: 12, fontWeight: 700, cursor: 'pointer', textAlign: 'center', textDecoration: 'none' }}>
+            <a href="https://ko-fi.com/pequemaps" target="_blank" rel="noopener noreferrer" style={{ display: 'block', background: '#ec4899', color: 'white', border: 'none', borderRadius: 20, padding: '8px 16px', fontSize: 12, fontWeight: 700, cursor: 'pointer', textAlign: 'center', textDecoration: 'none' }}>
               ☕ Apóyanos en Ko-fi
             </a>
           </div>
