@@ -14,8 +14,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Baby Friendly CDMX",
-  description: "Encuentra lugares baby friendly en la Ciudad de México",
+  title: "PequeMaps CDMX",
+  description: "Encuentra lugares PequeMaps en la Ciudad de México",
 };
 
 export const viewport = {

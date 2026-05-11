@@ -141,7 +141,7 @@ function seleccionarOpcion(opcion: any) {
 
         {/* Header */}
         <div style={{ background: '#ec4899', padding: '16px', color: 'white', textAlign: 'center', borderRadius: '24px 24px 0 0' }}>
-          <div style={{ fontSize: 15, fontWeight: 700 }}>🍼 Agregar lugar baby friendly</div>
+          <div style={{ fontSize: 15, fontWeight: 700 }}>🍼 Agregar lugar PequeMaps</div>
           <div style={{ display: 'flex', justifyContent: 'center', gap: 6, marginTop: 10 }}>
             {[1, 2, 3].map(n => (
               <div key={n} style={{ width: 8, height: 8, borderRadius: '50%', background: paso >= n ? 'white' : 'rgba(255,255,255,0.35)' }} />
