@@ -57,7 +57,7 @@ export default function EditarInstalaciones({ lugarId, instalacionesActuales, on
       <div style={{ background: '#fff', borderRadius: 24, width: '100%', maxWidth: 380, margin: '0 16px', maxHeight: '90vh', overflowY: 'auto' }}>
 
         {/* Header */}
-        <div style={{ background: '#ec4899', padding: '16px', color: 'white', textAlign: 'center', borderRadius: '24px 24px 0 0' }}>
+        <div style={{ background: '#0f766e', padding: '16px', color: 'white', textAlign: 'center', borderRadius: '24px 24px 0 0' }}>
           <div style={{ fontSize: 15, fontWeight: 700 }}>✏️ Editar instalaciones</div>
         </div>
 
@@ -78,13 +78,13 @@ export default function EditarInstalaciones({ lugarId, instalacionesActuales, on
                     key={inst.key}
                     onClick={() => toggleInstalacion(inst.key)}
                     style={{
-                      border: `1.5px solid ${instalaciones[inst.key] ? '#ec4899' : '#d1d5db'}`,
+                      border: `1.5px solid ${instalaciones[inst.key] ? '#0f766e' : '#d1d5db'}`,
                       borderRadius: 12,
                       padding: '12px 6px',
                       fontSize: 11,
                       cursor: 'pointer',
-                      color: instalaciones[inst.key] ? '#be185d' : '#444',
-                      background: instalaciones[inst.key] ? '#fdf2f8' : '#fff',
+                      color: instalaciones[inst.key] ? '#0f766e' : '#444',
+                      background: instalaciones[inst.key] ? '#f0fdfa' : '#fff',
                       fontWeight: instalaciones[inst.key] ? 600 : 400,
                       display: 'flex',
                       flexDirection: 'column',
@@ -114,7 +114,7 @@ export default function EditarInstalaciones({ lugarId, instalacionesActuales, on
             <button
               onClick={handleGuardar}
               disabled={cargando}
-              style={{ flex: 2, border: 'none', borderRadius: 12, padding: 13, fontSize: 14, fontWeight: 700, color: '#fff', background: cargando ? '#f9a8d4' : '#ec4899', cursor: 'pointer' }}
+              style={{ flex: 2, border: 'none', borderRadius: 12, padding: 13, fontSize: 14, fontWeight: 700, color: '#fff', background: cargando ? '#14b8a6' : '#0f766e', cursor: 'pointer' }}
             >
               {cargando ? 'Guardando...' : '✓ Guardar cambios'}
             </button>

@@ -33,7 +33,7 @@ body {
   bottom: 2rem;
   right: 1rem;
   z-index: 9999;
-  background-color: #ec4899;
+  background-color:#14b8a6;
   color: white;
   font-weight: 700;
   padding: 0.875rem 1.25rem;
@@ -58,7 +58,7 @@ label {
 }
 
 input[type="checkbox"] {
-  accent-color: #ec4899;
+  accent-color:#14b8a6;
 }
 .bg-white {
   background-color: #ffffff !important;
