@@ -38,7 +38,7 @@ body {
   font-weight: 700;
   padding: 0.875rem 1.25rem;
   border-radius: 9999px;
-  box-shadow: 0 4px 12px rgba(236,72,153,0.4);
+  box-shadow: 0 4px 12px rgba(20,184,166,0.4);
   font-size: 0.875rem;
   border: none;
   cursor: pointer;
@@ -47,7 +47,7 @@ body {
 }
 
 .boton-agregar:hover {
-  background-color: #db2777;
+  background-color: #14b8a6;
 }
 input, select, textarea {
   color: #111827;
