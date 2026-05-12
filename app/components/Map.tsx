@@ -111,7 +111,7 @@ export default function Map() {
   const iconoEstrella = typeof window !== 'undefined'
     ? require('leaflet').divIcon({
         className: '',
-        html: `<div style="font-size:28px;line-height:1;color:#ec4899;filter:drop-shadow(0 2px 4px rgba(0,0,0,0.3))">★</div>`,
+        html: `<div style="font-size:28px;line-height:1;color:#14b8a6;filter:drop-shadow(0 2px 4px rgba(0,0,0,0.3))">★</div>`,
         iconSize: [32, 32],
         iconAnchor: [16, 16],
         popupAnchor: [0, -16],
@@ -127,7 +127,7 @@ export default function Map() {
           <Filtros filtrosActivos={filtrosActivos} onToggle={toggleFiltro} />
         </div>
         {filtrosActivos.length > 0 && (
-          <div style={{ marginTop: 6, fontSize: 12, color: '#be185d', fontWeight: 500 }}>
+          <div style={{ marginTop: 6, fontSize: 12, color: '#0f766e', fontWeight: 500 }}>
             {lugaresFiltrados.length} lugar{lugaresFiltrados.length !== 1 ? 'es' : ''} encontrado{lugaresFiltrados.length !== 1 ? 's' : ''}
           </div>
         )}
@@ -155,55 +155,55 @@ export default function Map() {
               <Popup>
                 <div style={{ minWidth: 180 }}>
                   <div style={{ fontWeight: 700, fontSize: 14, color: '#111', marginBottom: 2 }}>{lugar.nombre}</div>
-                  <div style={{ fontSize: 12, color: '#ec4899', marginBottom: 6 }}>{lugar.tipo}</div>
+                  <div style={{ fontSize: 12, color: '#0f766e', marginBottom: 6 }}>{lugar.tipo}</div>
                   <div style={{ fontSize: 11, color: '#666', marginBottom: 8 }}>{lugar.direccion}</div>
                   {lugar.instalaciones?.[0] && (
                     <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6, marginBottom: 8 }}>
                       {lugar.instalaciones[0].cambiador_bebe && (
-                        <div style={{ display: 'flex', alignItems: 'center', gap: 3, background: '#fdf2f8', borderRadius: 8, padding: '3px 7px', fontSize: 11 }}>
-                          <span>&#x1F6BC;</span><span style={{ color: '#be185d' }}>Cambiador</span>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: 3, background: '#f0fdfa', borderRadius: 8, padding: '3px 7px', fontSize: 11 }}>
+                          <span>&#x1F6BC;</span><span style={{ color: '#0f766e' }}>Cambiador</span>
                         </div>
                       )}
                       {lugar.instalaciones[0].sillas_bebe && (
-                        <div style={{ display: 'flex', alignItems: 'center', gap: 3, background: '#fdf2f8', borderRadius: 8, padding: '3px 7px', fontSize: 11 }}>
-                          <span>&#x1FA91;</span><span style={{ color: '#be185d' }}>Silla bebé</span>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: 3, background: '#f0fdfa', borderRadius: 8, padding: '3px 7px', fontSize: 11 }}>
+                          <span>&#x1FA91;</span><span style={{ color: '#0f766e' }}>Silla bebé</span>
                         </div>
                       )}
                       {lugar.instalaciones[0].lactario && (
-                        <div style={{ display: 'flex', alignItems: 'center', gap: 3, background: '#fdf2f8', borderRadius: 8, padding: '3px 7px', fontSize: 11 }}>
-                          <span>&#x1F931;</span><span style={{ color: '#be185d' }}>Lactario</span>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: 3, background: '#f0fdfa', borderRadius: 8, padding: '3px 7px', fontSize: 11 }}>
+                          <span>&#x1F931;</span><span style={{ color: '#0f766e' }}>Lactario</span>
                         </div>
                       )}
                       {lugar.instalaciones[0].area_juegos && (
-                        <div style={{ display: 'flex', alignItems: 'center', gap: 3, background: '#fdf2f8', borderRadius: 8, padding: '3px 7px', fontSize: 11 }}>
-                          <span>&#x1F6DD;</span><span style={{ color: '#be185d' }}>Área juegos</span>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: 3, background: '#f0fdfa', borderRadius: 8, padding: '3px 7px', fontSize: 11 }}>
+                          <span>&#x1F6DD;</span><span style={{ color: '#0f766e' }}>Área juegos</span>
                         </div>
                       )}
                       {lugar.instalaciones[0].nineras && (
-                        <div style={{ display: 'flex', alignItems: 'center', gap: 3, background: '#fdf2f8', borderRadius: 8, padding: '3px 7px', fontSize: 11 }}>
-                          <span>&#x1F9D1;&#x200D;&#x1F467;</span><span style={{ color: '#be185d' }}>Niñeras</span>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: 3, background: '#f0fdfa', borderRadius: 8, padding: '3px 7px', fontSize: 11 }}>
+                          <span>&#x1F9D1;&#x200D;&#x1F467;</span><span style={{ color: '#0f766e' }}>Niñeras</span>
                         </div>
                       )}
                       {lugar.instalaciones[0].menu_infantil && (
-                        <div style={{ display: 'flex', alignItems: 'center', gap: 3, background: '#fdf2f8', borderRadius: 8, padding: '3px 7px', fontSize: 11 }}>
-                          <span>&#x1F37D;</span><span style={{ color: '#be185d' }}>Menú infantil</span>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: 3, background: '#f0fdfa', borderRadius: 8, padding: '3px 7px', fontSize: 11 }}>
+                          <span>&#x1F37D;</span><span style={{ color: '#0f766e' }}>Menú infantil</span>
                         </div>
                       )}
                       {lugar.instalaciones[0].accesibilidad && (
-                        <div style={{ display: 'flex', alignItems: 'center', gap: 3, background: '#fdf2f8', borderRadius: 8, padding: '3px 7px', fontSize: 11 }}>
-                          <span>&#x267F;</span><span style={{ color: '#be185d' }}>Accesibilidad</span>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: 3, background: '#f0fdfa', borderRadius: 8, padding: '3px 7px', fontSize: 11 }}>
+                          <span>&#x267F;</span><span style={{ color: '#0f766e' }}>Accesibilidad</span>
                         </div>
                       )}
                       {lugar.instalaciones[0].estacionamiento_accesible && (
-                        <div style={{ display: 'flex', alignItems: 'center', gap: 3, background: '#fdf2f8', borderRadius: 8, padding: '3px 7px', fontSize: 11 }}>
-                          <span>&#x1F17F;</span><span style={{ color: '#be185d' }}>Estacionamiento</span>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: 3, background: '#f0fdfa', borderRadius: 8, padding: '3px 7px', fontSize: 11 }}>
+                          <span>&#x1F17F;</span><span style={{ color: '#0f766e' }}>Estacionamiento</span>
                         </div>
                       )}
                     </div>
                   )}
                   <button
                     onClick={() => handleEditarLugar(lugar)}
-                    style={{ width: '100%', border: 'none', borderRadius: 8, padding: '6px 0', fontSize: 12, fontWeight: 600, color: '#fff', background: '#ec4899', cursor: 'pointer' }}
+                    style={{ width: '100%', border: 'none', borderRadius: 8, padding: '6px 0', fontSize: 12, fontWeight: 600, color: '#fff', background: '#0f766e', cursor: 'pointer' }}
                   >
                     Editar instalaciones
                   </button>
@@ -237,7 +237,7 @@ export default function Map() {
           right: '1rem',
           zIndex: 99999,
           background: '#fff',
-          border: '2px solid #ec4899',
+          border: '2px solid#14b8a6',
           borderRadius: '9999px',
           width: 44,
           height: 44,
@@ -295,7 +295,7 @@ export default function Map() {
             <p style={{ fontSize: 12, color: '#555', lineHeight: 1.6, marginBottom: 10 }}>
               Porque moverse con tus hijos en la ciudad no debería ser complicado. <strong>Esta plataforma es gratuita y hecha en comunidad.</strong> Si te es útil, considera apoyarnos.
             </p>
-            <a href="https://ko-fi.com/pequemaps" target="_blank" rel="noopener noreferrer" style={{ display: 'block', background: '#ec4899', color: 'white', border: 'none', borderRadius: 20, padding: '8px 16px', fontSize: 12, fontWeight: 700, cursor: 'pointer', textAlign: 'center', textDecoration: 'none' }}>
+            <a href="https://ko-fi.com/pequemaps" target="_blank" rel="noopener noreferrer" style={{ display: 'block', background: '#0f766e', color: 'white', border: 'none', borderRadius: 20, padding: '8px 16px', fontSize: 12, fontWeight: 700, cursor: 'pointer', textAlign: 'center', textDecoration: 'none' }}>
               ☕ Apóyanos en Ko-fi
             </a>
           </div>
