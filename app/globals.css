@@ -47,7 +47,7 @@ body {
 }
 
 .boton-agregar:hover {
-  background-color: #14b8a6;
+  background-color: #14b8a6 !important;
 }
 input, select, textarea {
   color: #111827;
