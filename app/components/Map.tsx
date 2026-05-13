@@ -38,6 +38,8 @@ type Lugar = {
   latitud: number
   longitud: number
   instalaciones?: any[]
+  actualizado_en?: string
+  creado_en?: string
 }
 
 export default function Map() {
@@ -128,7 +130,7 @@ export default function Map() {
         </div>
         {filtrosActivos.length > 0 && (
           <div style={{ marginTop: 6, fontSize: 12, color: '#0f766e', fontWeight: 500 }}>
-            {lugaresFiltrados.length} lugar{lugaresFiltrados.length !== 1 ? 'es' : ''} encontrado{lugaresFiltrados.length !== 1 ? 's' : ''}
+            {lugaresFiltrados.length} lugar{lugaresFiltrados.length !== 1 ? 'es' : ''} encontrado{lugaresFiltrados.length !== 1 ? 's' : ''} en tu zona
           </div>
         )}
       </div>
@@ -205,6 +207,13 @@ export default function Map() {
                     onClick={() => handleEditarLugar(lugar)}
                     style={{ width: '100%', border: 'none', borderRadius: 8, padding: '6px 0', fontSize: 12, fontWeight: 600, color: '#fff', background: '#0f766e', cursor: 'pointer' }}
                   >
+                    <div style={{ fontSize: 10, color: '#aaa', marginBottom: 6 }}>
+  {lugar.actualizado_en
+    ? `Actualizado: ${new Date(lugar.actualizado_en).toLocaleDateString('es-MX', { day: 'numeric', month: 'short', year: 'numeric' })}`
+    : lugar.creado_en
+    ? `Agregado: ${new Date(lugar.creado_en).toLocaleDateString('es-MX', { day: 'numeric', month: 'short', year: 'numeric' })}`
+    : ''}
+</div> 
                     Editar instalaciones
                   </button>
                   <button
@@ -284,23 +293,27 @@ export default function Map() {
 )}
     {/* Botón About + Ko-fi */}
       <div style={{ position: 'fixed', bottom: '1rem', left: '1rem', zIndex: 9999 }}>
-        <div
-          onClick={() => setMostrarAbout(!mostrarAbout)}
-          style={{ background: 'white', border: '1.5px solid #f3f4f6', borderRadius: 9999, padding: '8px 14px', fontSize: 12, color: '#555', cursor: 'pointer', boxShadow: '0 2px 8px rgba(0,0,0,0.1)', display: 'flex', alignItems: 'center', gap: 6 }}
-        >
-          ℹ️ Sobre este proyecto
-        </div>
-        {mostrarAbout && (
-          <div style={{ position: 'absolute', bottom: 44, left: 0, width: 240, background: 'white', borderRadius: 16, padding: 14, boxShadow: '0 4px 20px rgba(0,0,0,0.15)', border: '1px solid #f3f4f6' }}>
-            <p style={{ fontSize: 12, color: '#555', lineHeight: 1.6, marginBottom: 10 }}>
-              Porque moverse con tus hijos en la ciudad no debería ser complicado. <strong>Esta plataforma es gratuita y hecha en comunidad.</strong> Si te es útil, considera apoyarnos.
-            </p>
-            <a href="https://ko-fi.com/pequemaps" target="_blank" rel="noopener noreferrer" style={{ display: 'block', background: '#0f766e', color: 'white', border: 'none', borderRadius: 20, padding: '8px 16px', fontSize: 12, fontWeight: 700, cursor: 'pointer', textAlign: 'center', textDecoration: 'none' }}>
-              ☕ Apóyanos en Ko-fi
-            </a>
-          </div>
-        )}
+  <div
+    onClick={() => setMostrarAbout(!mostrarAbout)}
+    style={{ background: 'white', border: '1.5px solid #f3f4f6', borderRadius: 9999, padding: '8px 14px', fontSize: 12, color: '#555', cursor: 'pointer', boxShadow: '0 2px 8px rgba(0,0,0,0.1)', display: 'flex', alignItems: 'center', gap: 6 }}
+  >
+    ℹ️ Sobre este proyecto
+  </div>
+  {mostrarAbout && (
+    <div style={{ position: 'absolute', bottom: 44, left: 0, width: 240, background: 'white', borderRadius: 16, padding: 14, boxShadow: '0 4px 20px rgba(0,0,0,0.15)', border: '1px solid #f3f4f6' }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
+        <span style={{ fontSize: 12, fontWeight: 600, color: '#111' }}>Sobre este proyecto</span>
+        <span onClick={() => setMostrarAbout(false)} style={{ cursor: 'pointer', fontSize: 16, color: '#aaa', lineHeight: 1 }}>✕</span>
       </div>
+      <p style={{ fontSize: 12, color: '#555', lineHeight: 1.6, marginBottom: 10 }}>
+        Porque moverte con tus hijos no debería ser complicado. <strong>Esta plataforma es gratuita y hecha en comunidad.</strong> Si te es útil, considera apoyarnos.
+      </p>
+      <a href="https://ko-fi.com/pequemaps" target="_blank" rel="noopener noreferrer" style={{ display: 'block', background: '#14b8a6', color: 'white', border: 'none', borderRadius: 20, padding: '8px 16px', fontSize: 12, fontWeight: 700, cursor: 'pointer', textAlign: 'center', textDecoration: 'none' }}>
+        ☕ Apóyanos en Ko-fi
+      </a>
+    </div>
+  )}
+</div>
     </>
   )
 }

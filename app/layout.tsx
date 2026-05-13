@@ -14,8 +14,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "PequeMaps CDMX",
-  description: "Encuentra lugares PequeMaps en la Ciudad de México",
+  title: "PequeMaps",
+  description: "Encuentra lugares kid y baby friendly en la Ciudad de México",
 };
 
 export const viewport = {
@@ -37,6 +37,17 @@ export default function RootLayout({
       lang="es"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
+      <head>
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-CT55LJL4RX"></script>
+        <script dangerouslySetInnerHTML={{
+          __html: `
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-CT55LJL4RX');
+          `
+        }} />
+      </head>
       <body className="min-h-full flex flex-col">{children}</body>
     </html>
   );
