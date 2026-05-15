@@ -1,3 +1,10 @@
+@font-face {
+  font-family: 'GoodDays';
+  src: url('/fonts/Good_Days.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
 @import "tailwindcss";
 
 :root {

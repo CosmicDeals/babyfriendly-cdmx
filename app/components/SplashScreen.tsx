@@ -31,9 +31,12 @@ export default function SplashScreen({ onEntrar }: { onEntrar: () => void }) {
       </svg>
 
       {/* Texto */}
-      <div style={{ fontSize: 32, fontWeight: 800, color: '#111', letterSpacing: -1, marginBottom: 8 }}>
-        Peque<span style={{ color: '#14b8a6' }}>Maps</span>
-      </div>
+      <div style={{ marginBottom: 8 }}>
+  <div style={{ fontFamily: 'GoodDays', fontSize: 52, color: '#111', lineHeight: 1 }}>
+    Peque<span style={{ color: '#14b8a6' }}>Maps</span>
+  </div>
+  <div style={{ fontFamily: 'GoodDays', fontSize: 42, color: '#14b8a6', letterSpacing: 1, marginTop: 4 }}>CDMX</div>
+</div>
 
       <div style={{ fontSize: 14, color: '#555', lineHeight: 1.7, marginBottom: 10, maxWidth: 300 }}>
         Salir con tus hijos en la ciudad no debería ser complicado. Te ayudamos a encontrar 
@@ -51,7 +54,6 @@ export default function SplashScreen({ onEntrar }: { onEntrar: () => void }) {
         Explorar el mapa →
       </button>
 
-      <div style={{ fontSize: 11, color: '#aaa', marginTop: 16 }}>Ciudad de México</div>
     </div>
   )
 }

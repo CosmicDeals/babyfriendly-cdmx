@@ -9,12 +9,14 @@ const TIPOS = [
   { emoji: '☕', label: 'Café' },
   { emoji: '🏬', label: 'Centro comercial' },
   { emoji: '✈️', label: 'Aeropuerto' },
-  { emoji: '🏛️', label: 'Oficina' },
-  { emoji: '🏥', label: 'Hospital' },
   { emoji: '🌳', label: 'Parque' },
   { emoji: '📚', label: 'Librería' },
   { emoji: '🏛️', label: 'Museo' },
+  { emoji: '🎪', label: 'Ludoteca' },
+  { emoji: '🏛️', label: 'Oficina' },
+  { emoji: '🏥', label: 'Hospital' },
   { emoji: '📦', label: 'Otro' },
+ 
 ]
 
 const INSTALACIONES = [

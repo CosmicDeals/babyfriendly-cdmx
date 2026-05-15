@@ -113,7 +113,8 @@ export default function Map() {
   const iconoEstrella = typeof window !== 'undefined'
     ? require('leaflet').divIcon({
         className: '',
-        html: `<div style="font-size:28px;line-height:1;color:#14b8a6;filter:drop-shadow(0 2px 4px rgba(0,0,0,0.3))">★</div>`,
+        html: `<div style="width:16px;height:16px;border-radius:50%;background:#14b8a6;border:2px solid white;box-shadow:0 2px 6px rgba(0,0,0,0.3)"></div>`,
+iconSize: [16, 16],
         iconSize: [32, 32],
         iconAnchor: [16, 16],
         popupAnchor: [0, -16],
