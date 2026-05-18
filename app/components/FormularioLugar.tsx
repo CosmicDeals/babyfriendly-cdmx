@@ -144,7 +144,7 @@ function seleccionarOpcion(opcion: any) {
       <div style={{ background: '#fff', borderRadius: 24, width: '100%', maxWidth: 380, margin: '0 16px', maxHeight: '90vh', overflowY: 'auto', display: 'flex', flexDirection: 'column' }}>
 
         {/* Header */}
-        <div style={{ background: '#0f766e', padding: '16px', color: 'white', textAlign: 'center', borderRadius: '24px 24px 0 0' }}>
+        <div style={{ background: '#111', padding: '16px', color: 'white', textAlign: 'center', borderRadius: '24px 24px 0 0' }}>
           <div style={{ fontSize: 15, fontWeight: 700 }}>🍼 Agregar lugar PequeMaps</div>
           <div style={{ display: 'flex', justifyContent: 'center', gap: 6, marginTop: 10 }}>
             {[1, 2, 3].map(n => (
@@ -155,7 +155,7 @@ function seleccionarOpcion(opcion: any) {
 
         {/* Barra de progreso */}
         <div style={{ height: 4, background: '#ccfbf1' }}>
-          <div style={{ height: '100%', background: '#0f766e', width: `${progreso}%`, transition: 'width 0.3s' }} />
+          <div style={{ height: '100%', background: '#111', width: `${progreso}%`, transition: 'width 0.3s' }} />
         </div>
 
         {/* Contenido */}
@@ -183,12 +183,12 @@ function seleccionarOpcion(opcion: any) {
                         key={t.label}
                         onClick={() => setTipo(t.label)}
                         style={{
-                          border: `1.5px solid ${tipo === t.label ? '#0f766e' : '#d1d5db'}`,
+                          border: `1.5px solid ${tipo === t.label ? '#111' : '#d1d5db'}`,
                           borderRadius: 12,
                           padding: '10px 8px',
                           fontSize: 12,
                           cursor: 'pointer',
-                          color: tipo === t.label ? '#0f766e' : '#444',
+                          color: tipo === t.label ? '#111' : '#444',
                           background: tipo === t.label ? '#f0fdfa' : '#fff',
                           fontWeight: tipo === t.label ? 600 : 400,
                         }}
@@ -222,7 +222,7 @@ function seleccionarOpcion(opcion: any) {
           )
         }
       }}
-      style={{ width: '100%', border: 'none', borderRadius: 12, padding: '10px', fontSize: 13, fontWeight: 600, color: '#0f766e', background: '#f0fdfa', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6 }}
+      style={{ width: '100%', border: 'none', borderRadius: 12, padding: '10px', fontSize: 13, fontWeight: 600, color: '#111', background: '#f0fdfa', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6 }}
     >
       &#x1F4CD; Usar mi ubicación actual
     </button>
@@ -265,12 +265,12 @@ function seleccionarOpcion(opcion: any) {
                         key={inst.key}
                         onClick={() => toggleInstalacion(inst.key)}
                         style={{
-                          border: `1.5px solid ${instalaciones[inst.key] ? '#0f766e' : '#d1d5db'}`,
+                          border: `1.5px solid ${instalaciones[inst.key] ? '#111' : '#d1d5db'}`,
                           borderRadius: 12,
                           padding: '12px 6px',
                           fontSize: 11,
                           cursor: 'pointer',
-                          color: instalaciones[inst.key] ? '#0f766e' : '#444',
+                          color: instalaciones[inst.key] ? '#111' : '#444',
                           background: instalaciones[inst.key] ? '#f0fdfa' : '#fff',
                           fontWeight: instalaciones[inst.key] ? 600 : 400,
                           display: 'flex',
@@ -303,7 +303,7 @@ function seleccionarOpcion(opcion: any) {
             <button
               onClick={() => paso < 3 ? setPaso(paso + 1) : handleSubmit()}
               disabled={cargando}
-              style={{ flex: 2, border: 'none', borderRadius: 12, padding: 13, fontSize: 14, fontWeight: 700, color: '#fff', background: cargando ? '#14b8a6' : '#0f766e', cursor: 'pointer' }}
+              style={{ flex: 2, border: 'none', borderRadius: 12, padding: 13, fontSize: 14, fontWeight: 700, color: '#fff', background: cargando ? '#FCD34D' : '#111', cursor: 'pointer' }}
             >
               {paso < 3 ? 'Siguiente →' : cargando ? 'Guardando...' : '✓ Agregar lugar'}
             </button>

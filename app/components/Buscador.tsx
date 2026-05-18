@@ -68,7 +68,7 @@ export default function Buscador({ onUbicacion }: { onUbicacion: (lat: number, l
             border: 'none',
             borderRadius: 20,
             padding: '8px 14px',
-            background: '#0f766e',
+            background: '#111',
             color: '#fff',
             fontSize: 13,
             fontWeight: 700,

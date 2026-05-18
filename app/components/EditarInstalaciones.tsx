@@ -57,7 +57,7 @@ export default function EditarInstalaciones({ lugarId, instalacionesActuales, on
       <div style={{ background: '#fff', borderRadius: 24, width: '100%', maxWidth: 380, margin: '0 16px', maxHeight: '90vh', overflowY: 'auto' }}>
 
         {/* Header */}
-        <div style={{ background: '#0f766e', padding: '16px', color: 'white', textAlign: 'center', borderRadius: '24px 24px 0 0' }}>
+        <div style={{ background: '#111', padding: '16px', color: 'white', textAlign: 'center', borderRadius: '24px 24px 0 0' }}>
           <div style={{ fontSize: 15, fontWeight: 700 }}>✏️ Editar instalaciones</div>
         </div>
 
@@ -78,12 +78,12 @@ export default function EditarInstalaciones({ lugarId, instalacionesActuales, on
                     key={inst.key}
                     onClick={() => toggleInstalacion(inst.key)}
                     style={{
-                      border: `1.5px solid ${instalaciones[inst.key] ? '#0f766e' : '#d1d5db'}`,
+                      border: `1.5px solid ${instalaciones[inst.key] ? '#111' : '#d1d5db'}`,
                       borderRadius: 12,
                       padding: '12px 6px',
                       fontSize: 11,
                       cursor: 'pointer',
-                      color: instalaciones[inst.key] ? '#0f766e' : '#444',
+                      color: instalaciones[inst.key] ? '#111' : '#444',
                       background: instalaciones[inst.key] ? '#f0fdfa' : '#fff',
                       fontWeight: instalaciones[inst.key] ? 600 : 400,
                       display: 'flex',
@@ -114,7 +114,7 @@ export default function EditarInstalaciones({ lugarId, instalacionesActuales, on
             <button
               onClick={handleGuardar}
               disabled={cargando}
-              style={{ flex: 2, border: 'none', borderRadius: 12, padding: 13, fontSize: 14, fontWeight: 700, color: '#fff', background: cargando ? '#14b8a6' : '#0f766e', cursor: 'pointer' }}
+              style={{ flex: 2, border: 'none', borderRadius: 12, padding: 13, fontSize: 14, fontWeight: 700, color: '#fff', background: cargando ? '#FCD34D' : '#111', cursor: 'pointer' }}
             >
               {cargando ? 'Guardando...' : '✓ Guardar cambios'}
             </button>

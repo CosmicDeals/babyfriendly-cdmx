@@ -104,7 +104,7 @@ export default function ReportarLugar({ lugarId, nombreLugar, onCerrar }: Props)
           <div style={{ padding: '14px 16px', borderTop: '2px solid #f3f4f6', display: 'flex', gap: 10 }}>
             <button
               onClick={onCerrar}
-              style={{ flex: 1, border: 'none', borderRadius: 12, padding: 13, fontSize: 13, fontWeight: 700, color: '#fff', background: '#0f766e', cursor: 'pointer' }}
+              style={{ flex: 1, border: 'none', borderRadius: 12, padding: 13, fontSize: 13, fontWeight: 700, color: '#fff', background: '#111', cursor: 'pointer' }}
             >
               Cancelar
             </button>
