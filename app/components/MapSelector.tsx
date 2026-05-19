@@ -43,7 +43,7 @@ export default function MapSelector({ onUbicacionSeleccionada, centro, pinInicia
   }, [pinInicial])
 
   return (
-    <div style={{ borderRadius: 12, overflow: 'hidden', border: '1.5px solid #6ee7b7', height: 180, position: 'relative' }}>
+    <div style={{ borderRadius: 12, overflow: 'hidden', border: '1.5px solid #FCD34D', height: 180, position: 'relative' }}>
       <MapContainer
         center={[19.4326, -99.1332]}
         zoom={13}
@@ -68,7 +68,7 @@ export default function MapSelector({ onUbicacionSeleccionada, centro, pinInicia
           pointerEvents: 'none',
           zIndex: 999
         }}>
-          <span style={{ background: 'white', borderRadius: 20, padding: '6px 14px', fontSize: 12, fontWeight: 600, color: '#065f46', boxShadow: '0 2px 8px rgba(0,0,0,0.15)' }}>
+          <span style={{ background: 'white', borderRadius: 20, padding: '6px 14px', fontSize: 12, fontWeight: 600, color: '#B45309', boxShadow: '0 2px 8px rgba(0,0,0,0.15)' }}>
             👆 Toca el mapa para marcar
           </span>
         </div>
