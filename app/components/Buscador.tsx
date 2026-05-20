@@ -73,7 +73,7 @@ export default function Buscador({ onUbicacion }: { onUbicacion: (lat: number, l
             fontSize: 13,
             fontWeight: 700,
             cursor: 'pointer',
-            boxShadow: '0 2px 8px rgba(236,72,153,0.3)'
+            boxShadow: '0 2px 8px rgba(236, 209, 72, 0.3)'
           }}
         >
           {cargando ? '...' : 'Buscar'}
@@ -81,34 +81,39 @@ export default function Buscador({ onUbicacion }: { onUbicacion: (lat: number, l
       </div>
 
       {resultados.length > 0 && (
-        <div style={{
-          position: 'absolute',
-          top: '100%',
-          left: 0,
-          right: 0,
-          marginTop: 4,
-          background: '#fff',
-          borderRadius: 12,
-          boxShadow: '0 4px 16px rgba(0,0,0,0.15)',
-          overflow: 'hidden'
-        }}>
-          {resultados.map((r, i) => (
-            <div
-              key={i}
-              onClick={() => seleccionar(r)}
-              style={{
-                padding: '10px 14px',
-                fontSize: 13,
-                color: '#111',
-                cursor: 'pointer',
-                borderBottom: i < resultados.length - 1 ? '1px solid #f3f4f6' : 'none',
-              }}
-            >
-              📍 {r.display_name.split(',').slice(0, 2).join(',')}
-            </div>
-          ))}
-        </div>
-      )}
+  <div style={{
+    position: 'absolute',
+    top: '100%',
+    left: 0,
+    right: 0,
+    marginTop: 4,
+    background: '#fff',
+    borderRadius: 12,
+    boxShadow: '0 4px 16px rgba(0,0,0,0.15)',
+    overflow: 'hidden',
+    zIndex: 9999
+  }}>
+    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '8px 14px', borderBottom: '1px solid #f3f4f6' }}>
+      <span style={{ fontSize: 11, color: '#aaa' }}>Sugerencias</span>
+      <span onClick={() => setResultados([])} style={{ cursor: 'pointer', fontSize: 16, color: '#aaa', lineHeight: 1 }}>✕</span>
+    </div>
+    {resultados.map((r, i) => (
+      <div
+        key={i}
+        onClick={() => seleccionar(r)}
+        style={{
+          padding: '10px 14px',
+          fontSize: 13,
+          color: '#111',
+          cursor: 'pointer',
+          borderBottom: i < resultados.length - 1 ? '1px solid #f3f4f6' : 'none',
+        }}
+      >
+        📍 {r.display_name.split(',').slice(0, 2).join(',')}
+      </div>
+    ))}
+  </div>
+)}
     </div>
   )
 }

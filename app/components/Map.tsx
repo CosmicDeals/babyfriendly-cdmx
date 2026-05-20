@@ -8,6 +8,7 @@ import EditarInstalaciones from './EditarInstalaciones'
 import Buscador from './Buscador'
 import Filtros from './Filtros'
 import ReportarLugar from './ReportarLugar'
+import ListaResultados from './ListaResultados'
 
 const MapContainer = dynamic(
   () => import('react-leaflet').then(mod => mod.MapContainer),
@@ -51,6 +52,8 @@ export default function Map() {
   const [bounds, setBounds] = useState<any>(null)
   const mapRef = useRef<any>(null)
   const [mostrarAbout, setMostrarAbout] = useState(false)
+  const [tiposActivos, setTiposActivos] = useState<string[]>([])
+  const [lugarSeleccionado, setLugarSeleccionado] = useState<any>(null)
 
   async function cargarLugares() {
     const { data, error } = await supabase
@@ -76,7 +79,11 @@ export default function Map() {
       prev.includes(key) ? prev.filter(f => f !== key) : [...prev, key]
     )
   }
-
+  function toggleTipo(key: string) {
+    setTiposActivos(prev =>
+      prev.includes(key) ? prev.filter(t => t !== key) : [...prev, key]
+    )
+  }
   function handleUbicacion(lat: number, lng: number, zoom: number) {
     if (mapRef.current) {
       mapRef.current.setView([lat, lng], zoom)
@@ -105,6 +112,7 @@ export default function Map() {
       ) return false
     }
     if (filtrosActivos.length === 0) return true
+    if (tiposActivos.length > 0 && !tiposActivos.includes(lugar.tipo)) return false
     const inst = lugar.instalaciones?.[0]
     if (!inst) return false
     return filtrosActivos.every(f => inst[f] === true)
@@ -126,7 +134,12 @@ iconSize: [16, 16],
       <div className="barra-superior" style={{ position: 'fixed', top: 0, left: 0, right: 0, zIndex: 1000, background: '#fff', padding: '10px 12px', boxShadow: '0 2px 8px rgba(0,0,0,0.1)' }}>
         <Buscador onUbicacion={handleUbicacion} />
         <div style={{ marginTop: 8 }}>
-          <Filtros filtrosActivos={filtrosActivos} onToggle={toggleFiltro} />
+          <Filtros 
+            filtrosActivos={filtrosActivos} 
+            onToggle={toggleFiltro}
+            tiposActivos={tiposActivos}
+            onToggleTipo={toggleTipo}
+            />
         </div>
         {filtrosActivos.length > 0 && (
           <div style={{ marginTop: 6, fontSize: 12, color: '#111', fontWeight: 500 }}>
@@ -314,6 +327,73 @@ iconSize: [16, 16],
     </div>
   )}
 </div>
+{/* Lista de resultados */}
+{(filtrosActivos.length > 0 || tiposActivos.length > 0) && (
+  <ListaResultados
+    lugares={lugaresFiltrados}
+    onSeleccionar={(lugar) => {
+      if (mapRef.current) {
+        mapRef.current.setView([lugar.latitud, lugar.longitud], 16)
+        setLugarSeleccionado(lugar)
+      }
+    }}
+  />
+)}
+{lugarSeleccionado && (
+  <div style={{
+    position: 'fixed',
+    inset: 0,
+    background: 'rgba(0,0,0,0.4)',
+    zIndex: 9999,
+    display: 'flex',
+    alignItems: 'flex-end',
+    justifyContent: 'center',
+  }} onClick={() => setLugarSeleccionado(null)}>
+    <div style={{
+      background: '#fff',
+      borderRadius: '20px 20px 0 0',
+      padding: '20px 16px',
+      width: '100%',
+      maxWidth: 480,
+    }} onClick={e => e.stopPropagation()}>
+      <div style={{ fontWeight: 700, fontSize: 16, color: '#111', marginBottom: 4 }}>{lugarSeleccionado.nombre}</div>
+      <div style={{ fontSize: 13, color: '#FCD34D', marginBottom: 6, fontWeight: 500 }}>{lugarSeleccionado.tipo}</div>
+      <div style={{ fontSize: 12, color: '#666', marginBottom: 12 }}>{lugarSeleccionado.direccion}</div>
+      {lugarSeleccionado.instalaciones?.[0] && (
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6, marginBottom: 14 }}>
+          {lugarSeleccionado.instalaciones[0].cambiador_bebe && <div style={{ display: 'flex', alignItems: 'center', gap: 3, background: '#FFFBEB', borderRadius: 8, padding: '3px 7px', fontSize: 11 }}><span>🚼</span><span style={{ color: '#B45309' }}>Cambiador</span></div>}
+          {lugarSeleccionado.instalaciones[0].sillas_bebe && <div style={{ display: 'flex', alignItems: 'center', gap: 3, background: '#FFFBEB', borderRadius: 8, padding: '3px 7px', fontSize: 11 }}><span>🪑</span><span style={{ color: '#B45309' }}>Silla bebé</span></div>}
+          {lugarSeleccionado.instalaciones[0].lactario && <div style={{ display: 'flex', alignItems: 'center', gap: 3, background: '#FFFBEB', borderRadius: 8, padding: '3px 7px', fontSize: 11 }}><span>🤱</span><span style={{ color: '#B45309' }}>Lactario</span></div>}
+          {lugarSeleccionado.instalaciones[0].area_juegos && <div style={{ display: 'flex', alignItems: 'center', gap: 3, background: '#FFFBEB', borderRadius: 8, padding: '3px 7px', fontSize: 11 }}><span>🎠</span><span style={{ color: '#B45309' }}>Área juegos</span></div>}
+          {lugarSeleccionado.instalaciones[0].nineras && <div style={{ display: 'flex', alignItems: 'center', gap: 3, background: '#FFFBEB', borderRadius: 8, padding: '3px 7px', fontSize: 11 }}><span>👧</span><span style={{ color: '#B45309' }}>Niñeras</span></div>}
+          {lugarSeleccionado.instalaciones[0].menu_infantil && <div style={{ display: 'flex', alignItems: 'center', gap: 3, background: '#FFFBEB', borderRadius: 8, padding: '3px 7px', fontSize: 11 }}><span>🍽</span><span style={{ color: '#B45309' }}>Menú infantil</span></div>}
+          {lugarSeleccionado.instalaciones[0].accesibilidad && <div style={{ display: 'flex', alignItems: 'center', gap: 3, background: '#FFFBEB', borderRadius: 8, padding: '3px 7px', fontSize: 11 }}><span>♿</span><span style={{ color: '#B45309' }}>Accesibilidad</span></div>}
+          {lugarSeleccionado.instalaciones[0].estacionamiento_accesible && <div style={{ display: 'flex', alignItems: 'center', gap: 3, background: '#FFFBEB', borderRadius: 8, padding: '3px 7px', fontSize: 11 }}><span>🅿</span><span style={{ color: '#B45309' }}>Estacionamiento</span></div>}
+        </div>
+      )}
+      <div style={{ display: 'flex', gap: 8 }}>
+        <button
+          onClick={() => { handleEditarLugar(lugarSeleccionado); setLugarSeleccionado(null) }}
+          style={{ flex: 2, border: 'none', borderRadius: 12, padding: 12, fontSize: 13, fontWeight: 700, color: '#111', background: '#FCD34D', cursor: 'pointer' }}
+        >
+          Editar instalaciones
+        </button>
+        <button
+          onClick={() => { setLugarReportando(lugarSeleccionado); setLugarSeleccionado(null) }}
+          style={{ flex: 1, border: '1.5px solid #e5e7eb', borderRadius: 12, padding: 12, fontSize: 13, fontWeight: 600, color: '#666', background: '#fff', cursor: 'pointer' }}
+        >
+          🚩 Reportar
+        </button>
+      </div>
+      <button
+        onClick={() => setLugarSeleccionado(null)}
+        style={{ width: '100%', border: 'none', borderRadius: 12, padding: 10, fontSize: 13, color: '#aaa', background: 'transparent', cursor: 'pointer', marginTop: 8 }}
+      >
+        Cerrar
+      </button>
+    </div>
+  </div>
+)}
     </>
   )
 }
