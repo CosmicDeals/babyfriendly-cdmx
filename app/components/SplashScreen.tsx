@@ -32,7 +32,7 @@ export default function SplashScreen({ onEntrar }: { onEntrar: () => void }) {
 
       {/* Texto */}
       <div style={{ marginBottom: 8 }}>
-  <div style={{ fontFamily: 'GoodDays', fontSize: 52, color: '#111', lineHeight: 1 }}>
+  <div style={{ fontFamily: 'GoodDays', fontSize: 52, color: '#3a2f2f', lineHeight: 1 }}>
     Peque<span style={{ color: '#FCD34D' }}>Maps</span>
   </div>
   <div style={{ fontFamily: 'GoodDays', fontSize: 42, color: '#d7b030', letterSpacing: 1, marginTop: 4 }}>CDMX</div>
@@ -40,7 +40,7 @@ export default function SplashScreen({ onEntrar }: { onEntrar: () => void }) {
 
       <div style={{ fontSize: 14, color: '#555', lineHeight: 1.7, marginBottom: 25, maxWidth: 300 }}>
         Salir con tus hijos en la ciudad no debería ser complicado. Te ayudamos a encontrar 
-        <br /><strong style={{ color: '#111', fontWeight: 800, fontSize: 15 }}>lugares que sí piensan en las familias.</strong>
+        <br /><strong style={{ color: '#111', fontWeight: 800, fontSize: 15 }}>lugares y eventos que sí piensan en las familias.</strong>
       </div>
 
       <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 32 }}>
@@ -64,11 +64,31 @@ export default function SplashScreen({ onEntrar }: { onEntrar: () => void }) {
 
       <button
         onClick={onEntrar}
-        style={{ background: '#FCD34D', color: '#111', border: 'none', borderRadius: 9999, padding: '14px 32px', fontSize: 15, fontWeight: 700, cursor: 'pointer', boxShadow: '0 4px 16px rgba(219, 196, 23, 0.3)', width: '100%', maxWidth: 300, outline: 'none', textAlign: 'center'}}
+        style={{ background: '#FCD34D', color: '#60320e', border: 'none', borderRadius: 9999, padding: '14px 32px', fontSize: 15, fontWeight: 700, cursor: 'pointer', boxShadow: '0 4px 16px rgba(219, 196, 23, 0.3)', width: '100%', maxWidth: 300, outline: 'none', textAlign: 'center'}}
       >
-        Explorar el mapa →
+        EXPLORA EL MAPA 
       </button>
 
-    </div>
+      <a href="/eventos"
+  style={{
+    display: 'block',
+    background: '#FCD34D',
+    color: '#60320e',
+    border: '2px solid #FCD34D',
+    borderRadius: 9999,
+    padding: '12px 32px',
+    fontSize: 15,
+    fontWeight: 700,
+    cursor: 'pointer',
+    textAlign: 'center',
+    textDecoration: 'none',
+    width: '100%',
+    maxWidth: 300,
+    marginTop: 10,
+  }}
+>
+  EVENTOS
+</a>
+  </div>
   )
 }
