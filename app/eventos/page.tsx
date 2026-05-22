@@ -36,6 +36,7 @@ export default function EventosPage() {
   const [mostrarFormulario, setMostrarFormulario] = useState(false)
   const [cargando, setCargando] = useState(true)
   const [eventoEditando, setEventoEditando] = useState<Evento | null>(null)
+  const [imagenAmpliada, setImagenAmpliada] = useState<string | null>(null)
 
   async function cargarEventos() {
     const { data, error } = await supabase
@@ -133,7 +134,8 @@ export default function EventosPage() {
           eventosFiltrados.map(evento => (
             <div key={evento.id} style={{ background: '#fff', borderRadius: 16, overflow: 'hidden', boxShadow: '0 2px 8px rgba(0,0,0,0.06)' }}>
               {evento.imagen_url && (
-                <img src={evento.imagen_url} alt={evento.nombre} style={{ width: '100%', height: 500, objectFit: 'cover' }} />
+                <img src={evento.imagen_url} alt={evento.nombre} style={{ width: '100%', height: 180, objectFit: 'cover', cursor: 'pointer' }} 
+                onClick={() => setImagenAmpliada(evento.imagen_url)} />
               )}
               <div style={{ padding: '12px 14px' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 6 }}>
@@ -171,7 +173,25 @@ export default function EventosPage() {
           ))
         )}
       </div>
-
+      {imagenAmpliada && (
+  <div
+    onClick={() => setImagenAmpliada(null)}
+    style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.9)', zIndex: 99999, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 16 }}
+  >
+    <button
+      onClick={() => setImagenAmpliada(null)}
+      style={{ position: 'absolute', top: 16, right: 16, background: 'white', border: 'none', borderRadius: '50%', width: 36, height: 36, fontSize: 18, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+    >
+      ✕
+    </button>
+    <img
+      src={imagenAmpliada}
+      alt="Imagen del evento"
+      style={{ maxWidth: '100%', maxHeight: '90vh', objectFit: 'contain', borderRadius: 12 }}
+      onClick={e => e.stopPropagation()}
+    />
+  </div>
+)}
       {eventoEditando && (
   <EditarEvento
     evento={eventoEditando}
