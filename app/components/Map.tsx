@@ -258,8 +258,8 @@ iconSize: [16, 16],
           bottom: '8rem',
           right: '1rem',
           zIndex: 99999,
-          background: '#',
-          border: '2px solid#FCD34D',
+          background: '#FCD34D',
+          border: '2px solid #FCD34D',
           borderRadius: '9999px',
           width: 44,
           height: 44,
@@ -304,8 +304,30 @@ iconSize: [16, 16],
     onCerrar={() => setLugarReportando(null)}
   />
 )}
+<a href="/eventos"
+  style={{
+    position: 'fixed',
+    bottom: '4rem',
+    left: '1rem',
+    zIndex: 9999,
+    background: '#FCD34D',
+    border: 'none',
+    borderRadius: 9999,
+    padding: '8px 14px',
+    fontSize: 12,
+    fontWeight: 700,
+    color: '#111',
+    textDecoration: 'none',
+    boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
+    display: 'flex',
+    alignItems: 'center',
+    gap: 6,
+  }}
+>
+  Eventos
+</a>
     {/* Botón About + Ko-fi */}
-      <div style={{ position: 'fixed', bottom: '1rem', left: '1rem', zIndex: 9999 }}>
+      <div style={{ position: 'fixed', bottom: '0.5rem', left: '1rem', zIndex: 9999 }}>
   <div
     onClick={() => setMostrarAbout(!mostrarAbout)}
     style={{ background: 'white', border: '1.5px solid #f3f4f6', borderRadius: 9999, padding: '8px 14px', fontSize: 12, color: '#555', cursor: 'pointer', boxShadow: '0 2px 8px rgba(0,0,0,0.1)', display: 'flex', alignItems: 'center', gap: 6 }}
