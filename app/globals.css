@@ -37,7 +37,7 @@ body {
 
 .boton-agregar {
   position: fixed;
-  bottom: 8rem;
+  bottom: 4rem;
   right: 1rem;
   z-index: 9999;
   background-color:#FCD34D;
