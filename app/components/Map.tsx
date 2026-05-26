@@ -256,7 +256,7 @@ iconSize: [16, 16],
         style={{
           position: 'fixed',
           bottom: '8rem',
-          right: '1rem',
+          right: '2rem',
           zIndex: 99999,
           background: '#FCD34D',
           border: '2px solid #FCD34D',
