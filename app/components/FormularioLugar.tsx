@@ -28,6 +28,7 @@ const INSTALACIONES = [
   { key: 'menu_infantil', emoji: '🍽️', label: 'Menú infantil' },
   { key: 'accesibilidad', emoji: '♿', label: 'Accesibilidad (rampas y/o elevador)' },
   { key: 'estacionamiento', emoji: '🅿️', label: 'Estacionamiento o valet accesible' },
+  { key: 'pet_friendly', emoji: '🐾', label: 'Pet friendly' },
 ]
 
 export default function FormularioLugar({ onCerrar }: { onCerrar: () => void }) {

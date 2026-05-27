@@ -9,6 +9,7 @@ const FILTROS_INSTALACIONES = [
   { key: 'menu_infantil', emoji: '&#x1F37D;', label: 'Menú infantil' },
   { key: 'accesibilidad', emoji: '&#x267F;', label: 'Accesibilidad' },
   { key: 'estacionamiento_accesible', emoji: '&#x1F17F;', label: 'Estacionamiento' },
+  { key: 'pet_friendly', emoji: '🐾', label: 'Pet friendly' },
 ]
 
 const TIPOS = [

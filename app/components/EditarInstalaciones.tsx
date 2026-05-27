@@ -12,6 +12,7 @@ const INSTALACIONES = [
   { key: 'menu_infantil', emoji: '🍽️', label: 'Menú infantil' },
   { key: 'accesibilidad', emoji: '♿', label: 'Accesibilidad (rampas y/o elevador)' },
   { key: 'estacionamiento_accesible', emoji: '🅿️', label: 'Estacionamiento o valet accesible' },
+  { key: 'pet_friendly', emoji: '🐾', label: 'Pet friendly' },
 ]
 
 type Props = {

@@ -214,6 +214,11 @@ iconSize: [16, 16],
                           <span>&#x1F17F;</span><span style={{ color: '#111' }}>Estacionamiento</span>
                         </div>
                       )}
+                      {lugar.instalaciones[0].pet_friendly && (
+                      <div style={{ display: 'flex', alignItems: 'center', gap: 3, background: '#FFFBEB', borderRadius: 8, padding: '3px 7px', fontSize: 11 }}>
+                        <span>🐾</span><span style={{ color: '#B45309' }}>Pet friendly</span>
+                      </div>
+                    )}
                     </div>
                   )}
                   <button
@@ -256,7 +261,7 @@ iconSize: [16, 16],
         style={{
           position: 'fixed',
           bottom: '8rem',
-          right: '2rem',
+          right: '1rem',
           zIndex: 99999,
           background: '#FCD34D',
           border: '2px solid #FCD34D',
@@ -391,6 +396,7 @@ iconSize: [16, 16],
           {lugarSeleccionado.instalaciones[0].menu_infantil && <div style={{ display: 'flex', alignItems: 'center', gap: 3, background: '#FFFBEB', borderRadius: 8, padding: '3px 7px', fontSize: 11 }}><span>🍽</span><span style={{ color: '#B45309' }}>Menú infantil</span></div>}
           {lugarSeleccionado.instalaciones[0].accesibilidad && <div style={{ display: 'flex', alignItems: 'center', gap: 3, background: '#FFFBEB', borderRadius: 8, padding: '3px 7px', fontSize: 11 }}><span>♿</span><span style={{ color: '#B45309' }}>Accesibilidad</span></div>}
           {lugarSeleccionado.instalaciones[0].estacionamiento_accesible && <div style={{ display: 'flex', alignItems: 'center', gap: 3, background: '#FFFBEB', borderRadius: 8, padding: '3px 7px', fontSize: 11 }}><span>🅿</span><span style={{ color: '#B45309' }}>Estacionamiento</span></div>}
+          {lugarSeleccionado.instalaciones[0].pet_friendly && <div style={{ display: 'flex', alignItems: 'center', gap: 3, background: '#FFFBEB', borderRadius: 8, padding: '3px 7px', fontSize: 11 }}><span>🐾</span><span style={{ color: '#B45309' }}>Pet friendly</span></div>}
         </div>
       )}
       <div style={{ display: 'flex', gap: 8 }}>
