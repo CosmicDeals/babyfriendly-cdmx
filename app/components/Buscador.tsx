@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import { supabase } from '../../lib/supabase'
 
 type Resultado = {
   display_name: string
@@ -8,7 +9,21 @@ type Resultado = {
   lon: string
 }
 
-export default function Buscador({ onUbicacion }: { onUbicacion: (lat: number, lng: number, zoom: number) => void }) {
+type Lugar = {
+  id: string
+  nombre: string
+  tipo: string
+  direccion: string
+  latitud: number
+  longitud: number
+}
+
+type Props = {
+  onUbicacion: (lat: number, lng: number, zoom: number) => void
+  onLugaresEncontrados: (lugares: Lugar[]) => void
+}
+
+export default function Buscador({ onUbicacion, onLugaresEncontrados }: Props) {
   const [query, setQuery] = useState('')
   const [resultados, setResultados] = useState<Resultado[]>([])
   const [cargando, setCargando] = useState(false)
@@ -16,14 +31,31 @@ export default function Buscador({ onUbicacion }: { onUbicacion: (lat: number, l
   async function buscar() {
     if (!query.trim()) return
     setCargando(true)
+
+    // Primero buscamos en nuestra base de datos
+    const { data: lugares } = await supabase
+      .from('lugares')
+      .select('*, instalaciones(*)')
+      .ilike('nombre', `%${query}%`)
+      .limit(5)
+
+    if (lugares && lugares.length > 0) {
+      onLugaresEncontrados(lugares)
+      setResultados([])
+      setCargando(false)
+      return
+    }
+
+    // Si no hay resultados en la base de datos, buscamos zonas geográficas
     try {
       const res = await fetch(
         `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(query + ' Ciudad de Mexico')}&format=json&limit=4&accept-language=es`
       )
       const data = await res.json()
       setResultados(data)
+      onLugaresEncontrados([])
     } catch {
-      console.error('Error buscando ubicacion')
+      console.error('Error buscando')
     }
     setCargando(false)
   }
@@ -48,8 +80,8 @@ export default function Buscador({ onUbicacion }: { onUbicacion: (lat: number, l
           onBlur={() => {
             window.scrollTo(0, 0)
             document.body.scrollTop = 0
-         }}
-          placeholder="Busca una zona... ej: Coyoacán"
+          }}
+          placeholder="Busca un lugar o zona..."
           style={{
             flex: 1,
             border: '1.5px solid #e5e7eb',
@@ -73,7 +105,7 @@ export default function Buscador({ onUbicacion }: { onUbicacion: (lat: number, l
             fontSize: 13,
             fontWeight: 700,
             cursor: 'pointer',
-            boxShadow: '0 2px 8px rgba(236, 209, 72, 0.3)'
+            boxShadow: '0 2px 8px rgba(252,211,77,0.3)'
           }}
         >
           {cargando ? '...' : 'Buscar'}
@@ -81,39 +113,39 @@ export default function Buscador({ onUbicacion }: { onUbicacion: (lat: number, l
       </div>
 
       {resultados.length > 0 && (
-  <div style={{
-    position: 'absolute',
-    top: '100%',
-    left: 0,
-    right: 0,
-    marginTop: 4,
-    background: '#fff',
-    borderRadius: 12,
-    boxShadow: '0 4px 16px rgba(0,0,0,0.15)',
-    overflow: 'hidden',
-    zIndex: 9999
-  }}>
-    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '8px 14px', borderBottom: '1px solid #f3f4f6' }}>
-      <span style={{ fontSize: 11, color: '#aaa' }}>Sugerencias</span>
-      <span onClick={() => setResultados([])} style={{ cursor: 'pointer', fontSize: 16, color: '#aaa', lineHeight: 1 }}>✕</span>
-    </div>
-    {resultados.map((r, i) => (
-      <div
-        key={i}
-        onClick={() => seleccionar(r)}
-        style={{
-          padding: '10px 14px',
-          fontSize: 13,
-          color: '#111',
-          cursor: 'pointer',
-          borderBottom: i < resultados.length - 1 ? '1px solid #f3f4f6' : 'none',
-        }}
-      >
-        📍 {r.display_name.split(',').slice(0, 2).join(',')}
-      </div>
-    ))}
-  </div>
-)}
+        <div style={{
+          position: 'absolute',
+          top: '100%',
+          left: 0,
+          right: 0,
+          marginTop: 4,
+          background: '#fff',
+          borderRadius: 12,
+          boxShadow: '0 4px 16px rgba(0,0,0,0.15)',
+          overflow: 'hidden',
+          zIndex: 9999
+        }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '8px 14px', borderBottom: '1px solid #f3f4f6' }}>
+            <span style={{ fontSize: 11, color: '#aaa' }}>Zonas sugeridas</span>
+            <span onClick={() => setResultados([])} style={{ cursor: 'pointer', fontSize: 16, color: '#aaa', lineHeight: 1 }}>✕</span>
+          </div>
+          {resultados.map((r, i) => (
+            <div
+              key={i}
+              onClick={() => seleccionar(r)}
+              style={{
+                padding: '10px 14px',
+                fontSize: 13,
+                color: '#111',
+                cursor: 'pointer',
+                borderBottom: i < resultados.length - 1 ? '1px solid #f3f4f6' : 'none',
+              }}
+            >
+              📍 {r.display_name.split(',').slice(0, 2).join(',')}
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   )
 }

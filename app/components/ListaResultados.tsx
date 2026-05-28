@@ -33,7 +33,7 @@ export default function ListaResultados({
   return (
     <div style={{
       position: 'fixed',
-      bottom: 0,
+      bottom: '5rem',
       left: 0,
       right: 0,
       zIndex: 9998,

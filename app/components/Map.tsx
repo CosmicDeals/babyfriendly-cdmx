@@ -9,6 +9,7 @@ import Buscador from './Buscador'
 import Filtros from './Filtros'
 import ReportarLugar from './ReportarLugar'
 import ListaResultados from './ListaResultados'
+import ReclamarNegocio from './ReclamarNegocio'
 
 const MapContainer = dynamic(
   () => import('react-leaflet').then(mod => mod.MapContainer),
@@ -54,6 +55,8 @@ export default function Map() {
   const [mostrarAbout, setMostrarAbout] = useState(false)
   const [tiposActivos, setTiposActivos] = useState<string[]>([])
   const [lugarSeleccionado, setLugarSeleccionado] = useState<any>(null)
+  const [lugarReclamando, setLugarReclamando] = useState<Lugar | null>(null)
+  const [lugaresBuscados, setLugaresBuscados] = useState<Lugar[]>([])
 
   async function cargarLugares() {
     const { data, error } = await supabase
@@ -132,7 +135,17 @@ iconSize: [16, 16],
     <>
       {/* Barra superior */}
       <div className="barra-superior" style={{ position: 'fixed', top: 0, left: 0, right: 0, zIndex: 1000, background: '#fff', padding: '10px 12px', boxShadow: '0 2px 8px rgba(0,0,0,0.1)' }}>
-        <Buscador onUbicacion={handleUbicacion} />
+        <Buscador 
+  onUbicacion={handleUbicacion}
+  onLugaresEncontrados={(lugares) => {
+    if (lugares.length > 0) {
+      mapRef.current?.setView([lugares[0].latitud, lugares[0].longitud], 15)
+      setLugaresBuscados(lugares)
+    } else {
+      setLugaresBuscados([])
+    }
+  }}
+/>
         <div style={{ marginTop: 8 }}>
           <Filtros 
             filtrosActivos={filtrosActivos} 
@@ -355,13 +368,13 @@ iconSize: [16, 16],
   )}
 </div>
 {/* Lista de resultados */}
-{(filtrosActivos.length > 0 || tiposActivos.length > 0) && (
+{(filtrosActivos.length > 0 || tiposActivos.length > 0 || lugaresBuscados.length > 0) && (
   <ListaResultados
-    lugares={lugaresFiltrados}
+    lugares={lugaresBuscados.length > 0 ? lugaresBuscados : lugaresFiltrados}
     onSeleccionar={(lugar) => {
       if (mapRef.current) {
         mapRef.current.setView([lugar.latitud, lugar.longitud], 16)
-        setLugarSeleccionado(lugar)
+      setLugarSeleccionado(lugar)
       }
     }}
   />
@@ -419,8 +432,21 @@ iconSize: [16, 16],
       >
         Cerrar
       </button>
+      <button
+  onClick={() => { setLugarReclamando(lugarSeleccionado); setLugarSeleccionado(null) }}
+  style={{ width: '100%', border: '1.5px solid #FCD34D', borderRadius: 12, padding: 10, fontSize: 13, fontWeight: 600, color: '#111', background: '#FFFBEB', cursor: 'pointer', marginTop: 6 }}
+>
+  🏪 ¿Eres el dueño? Reclama tu negocio
+</button>
     </div>
   </div>
+)}
+{lugarReclamando && (
+  <ReclamarNegocio
+    lugarId={lugarReclamando.id}
+    nombreLugar={lugarReclamando.nombre}
+    onCerrar={() => setLugarReclamando(null)}
+  />
 )}
     </>
   )
