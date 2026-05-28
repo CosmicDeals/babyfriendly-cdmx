@@ -377,6 +377,11 @@ iconSize: [16, 16],
       setLugarSeleccionado(lugar)
       }
     }}
+    onCerrar={() => {
+  setLugaresBuscados([])
+  setFiltrosActivos([])
+  setTiposActivos([])
+}}
   />
 )}
 {lugarSeleccionado && (

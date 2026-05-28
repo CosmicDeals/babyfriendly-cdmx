@@ -24,9 +24,11 @@ const ICONOS: Record<string, string> = {
 export default function ListaResultados({
   lugares,
   onSeleccionar,
+  onCerrar,
 }: {
   lugares: Lugar[]
   onSeleccionar: (lugar: Lugar) => void
+  onCerrar: () => void
 }) {
   if (lugares.length === 0) return null
 
@@ -43,15 +45,21 @@ export default function ListaResultados({
       maxHeight: '45vh',
       overflowY: 'auto',
     }}>
-      {/* Handle */}
-      <div style={{ display: 'flex', justifyContent: 'center', padding: '10px 0 4px' }}>
-        <div style={{ width: 40, height: 4, borderRadius: 2, background: '#e5e7eb' }} />
-      </div>
-
-      {/* Título */}
-      <div style={{ padding: '0 16px 10px', fontSize: 13, fontWeight: 600, color: '#555' }}>
-        {lugares.length} lugar{lugares.length !== 1 ? 'es' : ''} encontrado{lugares.length !== 1 ? 's' : ''} en tu zona
-      </div>
+      {/* Handle y título con cerrar */}
+<div style={{ display: 'flex', justifyContent: 'center', padding: '10px 0 4px' }}>
+  <div style={{ width: 40, height: 4, borderRadius: 2, background: '#e5e7eb' }} />
+</div>
+<div style={{ padding: '0 16px 10px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+  <div style={{ fontSize: 13, fontWeight: 600, color: '#555' }}>
+    {lugares.length} lugar{lugares.length !== 1 ? 'es' : ''} encontrado{lugares.length !== 1 ? 's' : ''} en tu zona
+  </div>
+  <span
+    onClick={onCerrar}
+    style={{ cursor: 'pointer', fontSize: 16, color: '#aaa', lineHeight: 1 }}
+  >
+    ✕
+  </span>
+</div>
 
       {/* Lista */}
       {lugares.map(lugar => (
@@ -69,7 +77,7 @@ export default function ListaResultados({
         >
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
             <div style={{ fontSize: 14, fontWeight: 600, color: '#111' }}>{lugar.nombre}</div>
-            <div style={{ fontSize: 11, color: '#FCD34D', fontWeight: 500, background: '#FFFBEB', padding: '2px 8px', borderRadius: 20 }}>{lugar.tipo}</div>
+            <div style={{ fontSize: 11, color: '#111', fontWeight: 500, background: '#FCD34D', padding: '2px 8px', borderRadius: 20 }}>{lugar.tipo}</div>
           </div>
           <div style={{ fontSize: 12, color: '#888' }}>{lugar.direccion}</div>
           {lugar.instalaciones?.[0] && (
