@@ -33,8 +33,11 @@ export default function EditarInstalaciones({ lugarId, nombreLugar, instalacione
   const [centroMapa, setCentroMapa] = useState<[number, number]>([latitudActual, longitudActual])
   const [cargando, setCargando] = useState(false)
   const [exito, setExito] = useState(false)
-  const [tab, setTab] = useState<'instalaciones' | 'ubicacion'>('instalaciones')
+  const [tab, setTab] = useState<'instalaciones' | 'ubicacion' | 'info'>('instalaciones')
   const [direccionEditada, setDireccionEditada] = useState('')
+  const [nombreEditado, setNombreEditado] = useState('')
+  const [descripcionEditada, setDescripcionEditada] = useState('')
+  
 
   function toggleInstalacion(key: string) {
     setInstalaciones(prev => ({ ...prev, [key]: !prev[key] }))
@@ -53,7 +56,9 @@ export default function EditarInstalaciones({ lugarId, nombreLugar, instalacione
       .update({ 
         latitud, 
         longitud,
-        ...(direccionEditada ? { direccion: direccionEditada } : {})
+        ...(direccionEditada ? { direccion: direccionEditada } : {}),
+        ...(nombreEditado ? { nombre: nombreEditado } : {}),
+        ...(descripcionEditada ? { descripcion: descripcionEditada } : {}),
       })
       .eq('id', lugarId)  
 
@@ -83,19 +88,26 @@ export default function EditarInstalaciones({ lugarId, nombreLugar, instalacione
 
         {/* Tabs */}
         <div style={{ display: 'flex', borderBottom: '2px solid #f3f4f6' }}>
-          <button
-            onClick={() => setTab('instalaciones')}
-            style={{ flex: 1, padding: '12px', fontSize: 13, fontWeight: tab === 'instalaciones' ? 700 : 400, color: tab === 'instalaciones' ? '#111' : '#888', background: 'transparent', border: 'none', borderBottom: tab === 'instalaciones' ? '2px solid #FCD34D' : 'none', cursor: 'pointer' }}
-          >
-            Instalaciones
-          </button>
-          <button
-            onClick={() => setTab('ubicacion')}
-            style={{ flex: 1, padding: '12px', fontSize: 13, fontWeight: tab === 'ubicacion' ? 700 : 400, color: tab === 'ubicacion' ? '#111' : '#888', background: 'transparent', border: 'none', borderBottom: tab === 'ubicacion' ? '2px solid #FCD34D' : 'none', cursor: 'pointer' }}
-          >
-            Ubicación
-          </button>
-        </div>
+  <button
+    onClick={() => setTab('instalaciones')}
+    style={{ flex: 1, padding: '12px', fontSize: 12, fontWeight: tab === 'instalaciones' ? 700 : 400, color: tab === 'instalaciones' ? '#111' : '#888', background: 'transparent', border: 'none', borderBottom: tab === 'instalaciones' ? '2px solid #FCD34D' : 'none', cursor: 'pointer' }}
+  >
+    Instalaciones
+  </button>
+  <button
+    onClick={() => setTab('ubicacion')}
+    style={{ flex: 1, padding: '12px', fontSize: 12, fontWeight: tab === 'ubicacion' ? 700 : 400, color: tab === 'ubicacion' ? '#111' : '#888', background: 'transparent', border: 'none', borderBottom: tab === 'ubicacion' ? '2px solid #FCD34D' : 'none', cursor: 'pointer' }}
+  >
+    Ubicación
+  </button>
+  <button
+    onClick={() => setTab('info')}
+    style={{ flex: 1, padding: '12px', fontSize: 12, fontWeight: tab === 'info' ? 700 : 400, color: tab === 'info' ? '#111' : '#888', background: 'transparent', border: 'none', borderBottom: tab === 'info' ? '2px solid #FCD34D' : 'none', cursor: 'pointer' }}
+  >
+    Info
+  </button>
+</div>
+        
 
         {/* Contenido */}
         <div style={{ padding: '20px 16px' }}>
@@ -156,9 +168,29 @@ export default function EditarInstalaciones({ lugarId, nombreLugar, instalacione
                   </div>
                 </div>
               )}
+              {tab === 'info' && (
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+        <div style={{ fontSize: 12, color: '#777' }}>Corrige el nombre o descripción del lugar</div>
+        <input
+          value={nombreEditado}
+          onChange={e => setNombreEditado(e.target.value)}
+          placeholder="Nombre del lugar"
+          style={{ width: '100%', border: '1.5px solid #d1d5db', borderRadius: 12, padding: '11px 13px', fontSize: 16, color: '#111', background: '#fff', outline: 'none' }}
+        />
+        <textarea
+          value={descripcionEditada}
+          onChange={e => setDescripcionEditada(e.target.value)}
+          placeholder="Descripción (opcional)"
+          rows={3}
+          style={{ width: '100%', border: '1.5px solid #d1d5db', borderRadius: 12, padding: '11px 13px', fontSize: 14, color: '#111', background: '#fff', outline: 'none', resize: 'none' }}
+          />
+        </div>
+      )}
             </>
           )}
         </div>
+
+
 
         {/* Botones */}
         {!exito && (
