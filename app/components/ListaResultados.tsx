@@ -19,6 +19,7 @@ const ICONOS: Record<string, string> = {
   menu_infantil: '🍽',
   accesibilidad: '♿',
   estacionamiento_accesible: '🅿',
+  pet_friendly: '🐾',
 }
 
 export default function ListaResultados({
