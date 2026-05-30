@@ -319,7 +319,7 @@ iconSize: [16, 16],
 )}
       
       {lugarReportando && (
-  <Reportar Error
+  <ReportarLugar
     lugarId={lugarReportando.id}
     nombreLugar={lugarReportando.nombre}
     onCerrar={() => setLugarReportando(null)}
