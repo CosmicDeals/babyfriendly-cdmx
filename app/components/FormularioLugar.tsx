@@ -38,6 +38,7 @@ export default function FormularioLugar({ onCerrar }: { onCerrar: () => void }) 
   const [latitud, setLatitud] = useState<number | null>(null)
   const [longitud, setLongitud] = useState<number | null>(null)
   const [direccion, setDireccion] = useState('')
+  const [buscandoCoordenadas, setBuscandoCoordenadas] = useState(false)
   const [detalles, setDetalles] = useState('')
   const [busquedaDireccion, setBusquedaDireccion] = useState('')
   const [opcionesDireccion, setOpcionesDireccion] = useState<any[]>([])
@@ -68,6 +69,27 @@ export default function FormularioLugar({ onCerrar }: { onCerrar: () => void }) 
       setDireccion('')
     }
   }
+
+  async function buscarCoordenadas(dir: string) {
+  if (!dir.trim() || dir.length < 8) return
+  setBuscandoCoordenadas(true)
+  try {
+    const res = await fetch(
+      `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(dir + ', Ciudad de Mexico, Mexico')}&format=json&limit=1&accept-language=es&countrycodes=mx`
+    )
+    const data = await res.json()
+    if (data.length > 0) {
+      const lat = parseFloat(data[0].lat)
+      const lng = parseFloat(data[0].lon)
+      setLatitud(lat)
+      setLongitud(lng)
+      setCentroMapa([lat, lng])
+    }
+  } catch {
+    console.error('Error buscando coordenadas')
+  }
+  setBuscandoCoordenadas(false)
+}
 
   async function buscarDireccion() {
   if (!busquedaDireccion.trim()) return
@@ -205,7 +227,9 @@ function seleccionarOpcion(opcion: any) {
               {paso === 2 && (
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
     <div style={{ fontSize: 15, fontWeight: 700, color: '#111' }}>¿Dónde está? 🗺️</div>
-    <div style={{ fontSize: 12, color: '#777' }}>Marca la ubicación en el mapa y escribe la dirección</div>
+    <div style={{ fontSize: 12, color: '#777' }}>Marca la ubicación en el mapa y/o escribe la dirección</div>
+    <div style={{ background: '#FFFBEB', border: '1.5px solid #FCD34D', borderRadius: 12, padding: '10px 14px', fontSize: 12, color: '#B45309', lineHeight: 1.6 }}>
+  📍 La dirección es aproximada — por favor mueve el pin en el mapa para marcarlo con más precisión.</div>
 
     {/* Botón geolocalización */}
     <button
@@ -240,11 +264,20 @@ function seleccionarOpcion(opcion: any) {
 
     {/* Dirección manual */}  
     <input
-      value={direccion}
-      onChange={e => setDireccion(e.target.value)}
-      placeholder="Escribe la dirección (ej: Orizaba 42, Roma Norte)"
-      style={{ width: '100%', border: '1.5px solid #dbdbd1', borderRadius: 12, padding: '11px 13px', fontSize: 16, color: '#111', background: '#fff', outline: 'none' }}
-    />
+  value={direccion}
+  onChange={e => {
+    setDireccion(e.target.value)
+    clearTimeout((window as any)._dirTimeout)
+    ;(window as any)._dirTimeout = setTimeout(() => {
+      buscarCoordenadas(e.target.value)
+    }, 1000)
+  }}
+  placeholder="Calle, número y colonia (ej: Orizaba 42, Roma Norte)"
+  style={{ width: '100%', border: '1.5px solid #d1d5db', borderRadius: 12, padding: '11px 13px', fontSize: 16, color: '#111', background: '#fff', outline: 'none' }}
+/>
+{buscandoCoordenadas && (
+  <div style={{ fontSize: 11, color: '#B45309', marginTop: 4 }}>Buscando ubicación... 📍</div>
+)}
 
     <input
       value={detalles}

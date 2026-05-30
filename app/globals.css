@@ -110,3 +110,13 @@ input, select, textarea {
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
 }
+/* Mover controles del mapa debajo de la barra superior */
+.leaflet-top.leaflet-left {
+  top: 130px !important;
+}
+
+@media (min-width: 640px) {
+  .leaflet-top.leaflet-left {
+    top: 120px !important;
+  }
+}

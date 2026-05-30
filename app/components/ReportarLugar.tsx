@@ -5,10 +5,8 @@ import { supabase } from '../../lib/supabase'
 
 const MOTIVOS = [
   { key: 'cerrado', label: '🔒 El lugar cerró permanentemente' },
-  { key: 'incorrecto', label: '📍 La ubicación es incorrecta' },
-  { key: 'informacion', label: '❌ La información es incorrecta' },
   { key: 'duplicado', label: '♻️ Es un lugar duplicado' },
-  { key: 'otro', label: '💬 Otro motivo' },
+  { key: 'otro', label: '💬 Otra razón' },
 ]
 
 type Props = {
@@ -17,7 +15,7 @@ type Props = {
   onCerrar: () => void
 }
 
-export default function ReportarLugar({ lugarId, nombreLugar, onCerrar }: Props) {
+export default function ReportarError({ lugarId, nombreLugar, onCerrar }: Props) {
   const [motivo, setMotivo] = useState('')
   const [comentario, setComentario] = useState('')
   const [cargando, setCargando] = useState(false)
@@ -55,7 +53,7 @@ export default function ReportarLugar({ lugarId, nombreLugar, onCerrar }: Props)
 
         {/* Header */}
         <div style={{ background: '#6b7280', padding: '16px', color: 'white', textAlign: 'center', borderRadius: '24px 24px 0 0' }}>
-          <div style={{ fontSize: 15, fontWeight: 700 }}>🚩 Reportar lugar</div>
+          <div style={{ fontSize: 15, fontWeight: 700 }}>🚩 Reportar Error</div>
           <div style={{ fontSize: 12, marginTop: 4, opacity: 0.8 }}>{nombreLugar}</div>
         </div>
 

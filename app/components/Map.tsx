@@ -245,13 +245,13 @@ iconSize: [16, 16],
     ? `Agregado: ${new Date(lugar.creado_en).toLocaleDateString('es-MX', { day: 'numeric', month: 'short', year: 'numeric' })}`
     : ''}
 </div> 
-                    Editar instalaciones
+                    Editar
                   </button>
                   <button
                     onClick={() => setLugarReportando(lugar)}
                     style={{ width: '100%', border: '1.5px solid #d1d5db', borderRadius: 8, padding: '6px 0', fontSize: 12, fontWeight: 600, color: '#6b7280', background: '#fff', cursor: 'pointer' }}
                   >
-                    🚩 Reportar lugar
+                    🚩 Reportar Error
                   </button>
 
                 </div>
@@ -304,19 +304,22 @@ iconSize: [16, 16],
       )}
 
       {lugarEditando && (
-        <EditarInstalaciones
-          lugarId={lugarEditando.id}
-          instalacionesActuales={lugarEditando.instalaciones?.[0] || {}}
-          onCerrar={() => setLugarEditando(null)}
-          onGuardado={() => {
-            setLugarEditando(null)
-            cargarLugares()
-          }}
-        />
-      )}
+  <EditarInstalaciones
+    lugarId={lugarEditando.id}
+    nombreLugar={lugarEditando.nombre}
+    instalacionesActuales={lugarEditando.instalaciones?.[0] || {}}
+    latitudActual={lugarEditando.latitud}
+    longitudActual={lugarEditando.longitud}
+    onCerrar={() => setLugarEditando(null)}
+    onGuardado={() => {
+      setLugarEditando(null)
+      cargarLugares()
+    }}
+  />
+)}
       
       {lugarReportando && (
-  <ReportarLugar
+  <Reportar Error
     lugarId={lugarReportando.id}
     nombreLugar={lugarReportando.nombre}
     onCerrar={() => setLugarReportando(null)}
@@ -422,13 +425,13 @@ iconSize: [16, 16],
           onClick={() => { handleEditarLugar(lugarSeleccionado); setLugarSeleccionado(null) }}
           style={{ flex: 2, border: 'none', borderRadius: 12, padding: 12, fontSize: 13, fontWeight: 700, color: '#111', background: '#FCD34D', cursor: 'pointer' }}
         >
-          Editar instalaciones
+          Editar
         </button>
         <button
           onClick={() => { setLugarReportando(lugarSeleccionado); setLugarSeleccionado(null) }}
           style={{ flex: 1, border: '1.5px solid #e5e7eb', borderRadius: 12, padding: 12, fontSize: 13, fontWeight: 600, color: '#666', background: '#fff', cursor: 'pointer' }}
         >
-          🚩 Reportar
+          🚩 Reportar Error
         </button>
       </div>
       <button

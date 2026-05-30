@@ -27,9 +27,11 @@ export default function Buscador({ onUbicacion, onLugaresEncontrados }: Props) {
   const [query, setQuery] = useState('')
   const [resultados, setResultados] = useState<Resultado[]>([])
   const [cargando, setCargando] = useState(false)
+  const [noEncontrado, setNoEncontrado] = useState(false)
 
   async function buscar() {
     if (!query.trim()) return
+    setNoEncontrado(false)
     setCargando(true)
 
     // Primero buscamos en nuestra base de datos
@@ -40,11 +42,16 @@ export default function Buscador({ onUbicacion, onLugaresEncontrados }: Props) {
       .limit(5)
 
     if (lugares && lugares.length > 0) {
-      onLugaresEncontrados(lugares)
-      setResultados([])
-      setCargando(false)
-      return
-    }
+  onLugaresEncontrados(lugares)
+  setResultados([])
+  setCargando(false)
+  return
+} else if (lugares && lugares.length === 0) {
+  onLugaresEncontrados([])
+  setNoEncontrado(true)
+  setCargando(false)
+  return
+}
 
     // Si no hay resultados en la base de datos, buscamos zonas geográficas
     try {
@@ -111,6 +118,30 @@ export default function Buscador({ onUbicacion, onLugaresEncontrados }: Props) {
           {cargando ? '...' : 'Buscar'}
         </button>
       </div>
+
+      {noEncontrado && (
+  <div style={{
+    position: 'absolute',
+    top: '100%',
+    left: 0,
+    right: 0,
+    marginTop: 4,
+    background: '#fff',
+    borderRadius: 12,
+    boxShadow: '0 4px 16px rgba(0,0,0,0.15)',
+    padding: '14px',
+    zIndex: 9999,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    gap: 8,
+  }}>
+    <div style={{ fontSize: 13, color: '#555' }}>
+      No encontramos ese lugar... <span style={{ color: '#B45309', fontWeight: 600 }}>¿Lo agregas tú? 😊</span>
+    </div>
+    <span onClick={() => setNoEncontrado(false)} style={{ cursor: 'pointer', fontSize: 16, color: '#aaa' }}>✕</span>
+  </div>
+)}
 
       {resultados.length > 0 && (
         <div style={{
