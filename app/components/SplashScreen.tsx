@@ -87,7 +87,7 @@ export default function SplashScreen({ onEntrar }: { onEntrar: () => void }) {
     marginTop: 10,
   }}
 >
-  EVENTOS
+  VER EVENTOS
 </a>
   </div>
   )
