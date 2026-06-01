@@ -64,8 +64,7 @@ export default function EditarEvento({ evento, onCerrar, onGuardado }: Props) {
         tipo: tipos.join(', '),
         descripcion,
         direccion,
-        fecha_inicio: new Date(fechaInicio).toISOString(),
-        fecha_fin: fechaFin ? new Date(fechaFin).toISOString() : null,
+        fecha_inicio: fechaInicio,
         link_externo: linkExterno || null,
       })
       .eq('id', evento.id)

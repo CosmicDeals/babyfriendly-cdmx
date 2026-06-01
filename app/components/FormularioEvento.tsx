@@ -12,6 +12,7 @@ const TIPOS_EVENTO = [
   { key: 'Cine', emoji: '🎬' },
   { key: 'Naturaleza', emoji: '🌿' },
   { key: 'Educativo', emoji: '📚' },
+  { key: 'Ciencia', emoji: '🧬' },
   { key: 'Otro', emoji: '✨' },
 ]
 
@@ -66,8 +67,7 @@ async function handleSubirImagen(file: File) {
       tipo: tipos.join(', '),
       descripcion,
       direccion,
-      fecha_inicio: new Date(fechaInicio).toISOString(),
-      fecha_fin: fechaFin ? new Date(fechaFin).toISOString() : null,
+      fecha_inicio: fechaInicio,
       imagen_url: imagenUrl || null,
       link_externo: linkExterno || null,
     }])
@@ -163,16 +163,17 @@ async function handleSubirImagen(file: File) {
                         style={{ width: '100%', border: '1.5px solid #d1d5db', borderRadius: 12, padding: '11px 13px', fontSize: 14, color: '#111', background: '#fff', outline: 'none' }}
                     />
                   </div>
-                  <div>
-                    <div style={{ fontSize: 12, color: '#777', marginBottom: 4 }}>Fecha y hora de fin (opcional)</div>
-                    <input
-                      type="datetime-local"
-                      value={fechaFin}
-                      onChange={e => setFechaFin(e.target.value)}
-                      step="300"
-                      style={{ width: '100%', border: '1.5px solid #d1d5db', borderRadius: 12, padding: '11px 13px', fontSize: 14, color: '#111', background: '#fff', outline: 'none' }}
-                    />
-                  </div>
+                <div>
+                <div style={{ fontSize: 12, color: '#777', marginBottom: 4 }}>Fecha y hora de fin (opcional)</div>
+                <input
+                    type="datetime-local"
+                    value={fechaFin}
+                    onChange={e => setFechaFin(e.target.value)}
+                    step="300"
+                    style={{ width: '100%', border: '1.5px solid #d1d5db', borderRadius: 12, padding: '11px 13px', fontSize: 14, color: '#111', background: '#fff', outline: 'none' }}
+                />
+                </div>
+
                   <input
                     value={direccion}
                     onChange={e => setDireccion(e.target.value)}

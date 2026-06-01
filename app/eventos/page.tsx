@@ -14,6 +14,7 @@ const TIPOS_EVENTO = [
   { key: 'Cine', emoji: '🎬' },
   { key: 'Naturaleza', emoji: '🌿' },
   { key: 'Educativo', emoji: '📚' },
+  { key: 'Ciencia', emoji: '📚' },
   { key: 'Otro', emoji: '✨' },
 ]
 
@@ -39,12 +40,13 @@ export default function EventosPage() {
   const [imagenAmpliada, setImagenAmpliada] = useState<string | null>(null)
 
   async function cargarEventos() {
-    const { data, error } = await supabase
-      .from('eventos')
-      .select('*')
-      .eq('activo', true)
-      .gte('fecha_inicio', new Date().toISOString())
-      .order('fecha_inicio', { ascending: true })
+  const hoy = new Date().toISOString()
+  const { data, error } = await supabase
+    .from('eventos')
+    .select('*')
+    .eq('activo', true)
+    .gte('fecha_fin', hoy)
+    .order('fecha_inicio', { ascending: true })
 
     if (!error && data) setEventos(data)
     setCargando(false)
