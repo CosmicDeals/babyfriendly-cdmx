@@ -37,7 +37,9 @@ export default function FormularioEvento({ onCerrar }: { onCerrar: () => void })
 }
 async function handleSubirImagen(file: File) {
   setSubiendoImagen(true)
-  const nombreArchivo = `${Date.now()}-${file.name}`
+  const extension = file.name.split('.').pop()
+  const nombreLimpio = `evento-${Date.now()}.${extension}`
+  const nombreArchivo = nombreLimpio
   const { data, error } = await supabase.storage
     .from('eventos-imagenes')
     .upload(nombreArchivo, file)
