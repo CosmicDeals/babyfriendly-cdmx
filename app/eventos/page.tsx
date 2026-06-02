@@ -136,14 +136,14 @@ export default function EventosPage() {
         ) : (
           eventosFiltrados.map(evento => (
             <div key={evento.id} style={{ background: '#fff', borderRadius: 16, overflow: 'hidden', boxShadow: '0 2px 8px rgba(0,0,0,0.06)' }}>
-            <div style={{ padding: '12px 14px', display: 'flex', gap: 12, alignItems: 'flex-start' }}>
+            <div className="evento-card" style={{ padding: '12px 14px' }}>
             {evento.imagen_url && (
             <img
             src={evento.imagen_url}
             alt={evento.nombre}
             onClick={() => setImagenAmpliada(evento.imagen_url)}
-            style={{ width: 200, height: '100%', minHeight: 100, objectFit: 'cover', borderRadius: 12, cursor: 'pointer', flexShrink: 0 }}
-            />
+            className="evento-imagen"
+          />
              )}
             <div style={{ flex: 1 }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 6 }}>
