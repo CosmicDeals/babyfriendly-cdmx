@@ -420,6 +420,13 @@ iconSize: [16, 16],
           {lugarSeleccionado.instalaciones[0].pet_friendly && <div style={{ display: 'flex', alignItems: 'center', gap: 3, background: '#FFFBEB', borderRadius: 8, padding: '3px 7px', fontSize: 11 }}><span>🐾</span><span style={{ color: '#B45309' }}>Pet friendly</span></div>}
         </div>
       )}
+      <a href={`https://wa.me/?text=${encodeURIComponent(`¡Encontré este lugar kid friendly en PequeMaps! 🌟\n\n*${lugarSeleccionado.nombre}*\n📍 ${lugarSeleccionado.direccion}\n\nEncuéntralo en: https://pequemaps.com`)}`}
+      target="_blank"
+      rel="noopener noreferrer"
+      style={{ display: 'block', background: '#25D366', color: 'white', border: 'none', borderRadius: 12, padding: '10px 0', fontSize: 13, fontWeight: 700, cursor: 'pointer', textAlign: 'center', textDecoration: 'none', marginBottom: 8 }}
+      >
+  Compartir por WhatsApp
+</a>
       <div style={{ display: 'flex', gap: 8 }}>
         <button
           onClick={() => { handleEditarLugar(lugarSeleccionado); setLugarSeleccionado(null) }}
