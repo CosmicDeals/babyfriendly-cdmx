@@ -136,11 +136,16 @@ export default function EventosPage() {
         ) : (
           eventosFiltrados.map(evento => (
             <div key={evento.id} style={{ background: '#fff', borderRadius: 16, overflow: 'hidden', boxShadow: '0 2px 8px rgba(0,0,0,0.06)' }}>
-              {evento.imagen_url && (
-                <img src={evento.imagen_url} alt={evento.nombre} style={{ width: '100%', height: 180, objectFit: 'cover', cursor: 'pointer' }} 
-                onClick={() => setImagenAmpliada(evento.imagen_url)} />
-              )}
-              <div style={{ padding: '12px 14px' }}>
+            <div style={{ padding: '12px 14px', display: 'flex', gap: 12, alignItems: 'flex-start' }}>
+            {evento.imagen_url && (
+            <img
+            src={evento.imagen_url}
+            alt={evento.nombre}
+            onClick={() => setImagenAmpliada(evento.imagen_url)}
+            style={{ width: 200, height: '100%', minHeight: 150, objectFit: 'cover', borderRadius: 12, cursor: 'pointer', flexShrink: 0 }}
+            />
+             )}
+            <div style={{ flex: 1 }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 6 }}>
                   <div style={{ fontSize: 15, fontWeight: 700, color: '#111', flex: 1 }}>{evento.nombre}</div>
                   <div style={{ fontSize: 11, color: '#111', background: '#FCD34D', padding: '2px 8px', borderRadius: 20, marginLeft: 8, whiteSpace: 'nowrap' }}>{evento.tipo}</div>
@@ -173,6 +178,7 @@ export default function EventosPage() {
 </button>
               </div>
             </div>
+        </div>
           ))
         )}
       </div>
