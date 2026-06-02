@@ -142,7 +142,7 @@ export default function EventosPage() {
             src={evento.imagen_url}
             alt={evento.nombre}
             onClick={() => setImagenAmpliada(evento.imagen_url)}
-            style={{ width: 200, height: '100%', minHeight: 150, objectFit: 'cover', borderRadius: 12, cursor: 'pointer', flexShrink: 0 }}
+            style={{ width: 200, height: '100%', minHeight: 100, objectFit: 'cover', borderRadius: 12, cursor: 'pointer', flexShrink: 0 }}
             />
              )}
             <div style={{ flex: 1 }}>
