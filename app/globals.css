@@ -160,6 +160,6 @@ input, select, textarea {
   .splash-logo-wrap {
     width: 75vw;
     max-width: 280px;
-    height: auto;
+    height: 130px;
   }
 }
