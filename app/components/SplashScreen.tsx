@@ -5,7 +5,8 @@ export default function SplashScreen({ onEntrar }: { onEntrar: () => void }) {
     <div style={{ position: 'fixed', inset: 0, background: 'linear-gradient(160deg, #fff 0%, #fffbeb 40%, #fef9c3 100%)', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', zIndex: 99999, padding: '40px 28px', textAlign: 'center' }}>
 
       {/* Logo */}
-      <svg viewBox="0 0 160 90" fill="none" xmlns="http://www.w3.org/2000/svg" className="splash-logo" style={{ marginBottom: 20 }}>
+      <div className="splash-logo-wrap"></div>
+      <svg width="160" height="90" viewBox="0 0 160 90" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ marginBottom: 20 }}>
         <g transform="translate(8, 14)">
           <circle cx="18" cy="16" r="7" fill="#d7b030"/>
           <path d="M8 38 Q10 24 18 24 Q26 24 28 38" fill="#d7b030"/>
@@ -29,6 +30,7 @@ export default function SplashScreen({ onEntrar }: { onEntrar: () => void }) {
         <text x="68" y="42" fontSize="25" fill="#111">♥</text>
         <path d="M0 75 Q20 67 35 73 Q55 63 80 71 Q105 63 125 69 Q140 63 160 67 L160 90 L0 90 Z" fill="#FEF08A"/>
       </svg>
+      
 
       {/* Texto */}
       <div style={{ marginBottom: 8 }}>
@@ -37,6 +39,7 @@ export default function SplashScreen({ onEntrar }: { onEntrar: () => void }) {
   </div>
   <div style={{ fontFamily: 'GoodDays', fontSize: 42, color: '#d7b030', letterSpacing: 1, marginTop: 4 }}>CDMX</div>
 </div>
+
 
       <div style={{ fontSize: 14, color: '#555', lineHeight: 1.7, marginBottom: 25, maxWidth: 300 }}>
         Salir con tus hijos en la ciudad no debería ser complicado. Te ayudamos a encontrar 
