@@ -147,13 +147,11 @@ input, select, textarea {
 }
 .splash-logo {
   width: 160px;
-  height: auto;
-  display:block;
+  aspect-ratio: 160/90;
 }
 
 @media (max-width: 640px) {
   .splash-logo {
     width: 260px;
-    height: auto;
   }
 }
