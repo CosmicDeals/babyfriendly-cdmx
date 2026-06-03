@@ -5,7 +5,6 @@ export default function SplashScreen({ onEntrar }: { onEntrar: () => void }) {
     <div style={{ position: 'fixed', inset: 0, background: 'linear-gradient(160deg, #fff 0%, #fffbeb 40%, #fef9c3 100%)', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', zIndex: 99999, padding: '40px 28px', textAlign: 'center' }}>
 
       {/* Logo */}
-      <div className="splash-logo-wrap"></div>
       <svg width="160" height="90" viewBox="0 0 160 90" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ marginBottom: 20 }}>
         <g transform="translate(8, 14)">
           <circle cx="18" cy="16" r="7" fill="#d7b030"/>
