@@ -8,7 +8,7 @@ export default function SplashScreen({ onEntrar }: { onEntrar: () => void }) {
       <img 
       src="/logo-pequemaps.svg" 
       alt="PequeMaps logo"
-      style={{ width: '10vw', maxWidth: 200, minWidth: 120, marginBottom: 20 }}
+      style={{ width: '20vw', maxWidth: 210, minWidth: 130, marginBottom: 20 }}
     />
 
       {/* Texto */}
