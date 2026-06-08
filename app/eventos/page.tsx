@@ -41,12 +41,12 @@ export default function EventosPage() {
 
   async function cargarEventos() {
   const hoy = new Date().toISOString()
-  const { data, error } = await supabase
+const hace180dias = new Date(Date.now() - 180 * 24 * 60 * 60 * 1000).toISOString()
+const { data, error } = await supabase
   .from('eventos')
   .select('*')
   .eq('activo', true)
-  .or(`fecha_fin.gte.${hoy},fecha_fin.is.null`)
-  .gte('fecha_inicio', new Date(Date.now() - 180 * 24 * 60 * 60 * 1000).toISOString())
+  .or(`fecha_fin.gte.${hoy},and(fecha_fin.is.null,fecha_inicio.gte.${hace180dias})`)
   .order('fecha_inicio', { ascending: true })
 
     if (!error && data) setEventos(data)

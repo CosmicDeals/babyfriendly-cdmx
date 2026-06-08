@@ -58,16 +58,17 @@ export default function EditarEvento({ evento, onCerrar, onGuardado }: Props) {
     setCargando(true)
 
     const { error } = await supabase
-      .from('eventos')
-      .update({
-        nombre,
-        tipo: tipos.join(', '),
-        descripcion,
-        direccion,
-        fecha_inicio: fechaInicio,
-        link_externo: linkExterno || null,
-      })
-      .eq('id', evento.id)
+  .from('eventos')
+  .update({
+    nombre,
+    tipo: tipos.join(', '),
+    descripcion,
+    direccion,
+    fecha_inicio: fechaInicio,
+    fecha_fin: fechaFin || null,
+    link_externo: linkExterno || null,
+  })
+  .eq('id', evento.id)
 
     if (error) {
       alert('Hubo un error al guardar')
