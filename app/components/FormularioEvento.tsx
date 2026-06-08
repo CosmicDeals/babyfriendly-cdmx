@@ -65,14 +65,15 @@ async function handleSubirImagen(file: File) {
     setCargando(true)
 
     const { error } = await supabase.from('eventos').insert([{
-      nombre,
-      tipo: tipos.join(', '),
-      descripcion,
-      direccion,
-      fecha_inicio: fechaInicio,
-      imagen_url: imagenUrl || null,
-      link_externo: linkExterno || null,
-    }])
+  nombre,
+  tipo: tipos.join(', '),
+  descripcion,
+  direccion,
+  fecha_inicio: fechaInicio,
+  fecha_fin: fechaFin || null,
+  imagen_url: imagenUrl || null,
+  link_externo: linkExterno || null,
+}])
 
     if (error) {
       alert('Hubo un error al guardar el evento')
