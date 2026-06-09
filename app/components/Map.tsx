@@ -106,20 +106,23 @@ export default function Map() {
     }
   }
 
-  const lugaresFiltrados = lugares.filter(lugar => {
-    if (bounds) {
-      const { _southWest: sw, _northEast: ne } = bounds
-      if (
-        lugar.latitud < sw.lat || lugar.latitud > ne.lat ||
-        lugar.longitud < sw.lng || lugar.longitud > ne.lng
-      ) return false
-    }
-    if (filtrosActivos.length === 0) return true
-    if (tiposActivos.length > 0 && !tiposActivos.includes(lugar.tipo)) return false
-    const inst = lugar.instalaciones?.[0]
-    if (!inst) return false
-    return filtrosActivos.every(f => inst[f] === true)
-  })
+ const lugaresFiltrados = lugares.filter(lugar => {
+  if (bounds) {
+    const { _southWest: sw, _northEast: ne } = bounds
+    if (
+      lugar.latitud < sw.lat || lugar.latitud > ne.lat ||
+      lugar.longitud < sw.lng || lugar.longitud > ne.lng
+    ) return false
+  }
+
+  if (tiposActivos.length > 0 && !tiposActivos.includes(lugar.tipo)) return false
+
+  if (filtrosActivos.length === 0) return true
+
+  const inst = lugar.instalaciones?.[0]
+  if (!inst) return false
+  return filtrosActivos.every(f => inst[f] === true)
+})
 
   const iconoEstrella = typeof window !== 'undefined'
     ? require('leaflet').divIcon({
@@ -173,7 +176,7 @@ iconSize: [16, 16],
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             attribution='&copy; OpenStreetMap contributors'
           />
-          <ZoomHandler onBoundsChange={setBounds} />
+          <ZoomHandler onBoundsChange={useCallback(setBounds, [])} />
           {lugaresFiltrados.map(lugar => (
             <Marker
               key={lugar.id}

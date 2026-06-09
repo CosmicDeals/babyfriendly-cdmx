@@ -1,21 +1,16 @@
 'use client'
 
-import { useEffect } from 'react'
 import { useMapEvents } from 'react-leaflet'
 
 export default function ZoomHandler({ onBoundsChange }: { onBoundsChange: (bounds: any) => void }) {
-  const map = useMapEvents({
-    moveend() {
-      onBoundsChange(map.getBounds())
+  useMapEvents({
+    moveend(e) {
+      onBoundsChange(e.target.getBounds())
     },
-    zoomend() {
-      onBoundsChange(map.getBounds())
+    zoomend(e) {
+      onBoundsChange(e.target.getBounds())
     },
   })
-
-  useEffect(() => {
-    onBoundsChange(map.getBounds())
-  }, [])
 
   return null
 }

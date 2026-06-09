@@ -39,8 +39,8 @@ export default function MapSelector({ onUbicacionSeleccionada, centro, pinInicia
   }
 
   useEffect(() => {
-    if (pinInicial) setPin(pinInicial)
-  }, [pinInicial])
+  if (pinInicial) setPin(pinInicial)
+}, [pinInicial?.lat, pinInicial?.lng])
 
   return (
     <div style={{ borderRadius: 12, overflow: 'hidden', border: '1.5px solid #FCD34D', height: 180, position: 'relative' }}>
