@@ -189,6 +189,13 @@ iconSize: [16, 16],
                   <div style={{ fontWeight: 700, fontSize: 14, color: '#111', marginBottom: 2 }}>{lugar.nombre}</div>
                   <div style={{ fontSize: 12, color: '#111', marginBottom: 6 }}>{lugar.tipo}</div>
                   <div style={{ fontSize: 11, color: '#666', marginBottom: 8 }}>{lugar.direccion}</div>
+                 <a href={`https://www.google.com/maps?q=${lugar.latitud},${lugar.longitud}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{ fontSize: 11, color: '#2563eb', fontWeight: 600, textDecoration: 'none', display: 'inline-block', marginBottom: 6 }}
+                >
+                  &#x1F4CD; Obtener direcciones en Google Maps
+                </a>
                   {lugar.detalles && (
                   <div style={{ fontSize: 11, color: '#888' }}>{lugar.detalles}</div>
                 )}
@@ -420,7 +427,7 @@ iconSize: [16, 16],
   rel="noopener noreferrer"
   style={{ fontSize: 12, color: '#2563eb', fontWeight: 600, textDecoration: 'none', display: 'block', marginBottom: 12}}
 >
-  Obtener direcciones
+  &#x1F4CD; Obtener direcciones en Google Maps
 </a>
       {lugarSeleccionado.instalaciones?.[0] && (
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6, marginBottom: 14 }}>
