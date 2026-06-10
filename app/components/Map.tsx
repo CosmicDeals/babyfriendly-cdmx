@@ -413,7 +413,15 @@ iconSize: [16, 16],
     }} onClick={e => e.stopPropagation()}>
       <div style={{ fontWeight: 700, fontSize: 16, color: '#111', marginBottom: 4 }}>{lugarSeleccionado.nombre}</div>
       <div style={{ fontSize: 13, color: '#FCD34D', marginBottom: 6, fontWeight: 500 }}>{lugarSeleccionado.tipo}</div>
-      <div style={{ fontSize: 12, color: '#666', marginBottom: 12 }}>{lugarSeleccionado.direccion}</div>
+      <div style={{ fontSize: 12, color: '#666', marginBottom: 4 }}>{lugarSeleccionado.direccion}</div>
+
+ <a href={`https://www.google.com/maps?q=${lugarSeleccionado.latitud},${lugarSeleccionado.longitud}`}
+  target="_blank"
+  rel="noopener noreferrer"
+  style={{ fontSize: 12, color: '#2563eb', fontWeight: 600, textDecoration: 'none', display: 'block', marginBottom: 12}}
+>
+  Obtener direcciones
+</a>
       {lugarSeleccionado.instalaciones?.[0] && (
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6, marginBottom: 14 }}>
           {lugarSeleccionado.instalaciones[0].cambiador_bebe && <div style={{ display: 'flex', alignItems: 'center', gap: 3, background: '#FFFBEB', borderRadius: 8, padding: '3px 7px', fontSize: 11 }}><span>🚼</span><span style={{ color: '#B45309' }}>Cambiador</span></div>}
