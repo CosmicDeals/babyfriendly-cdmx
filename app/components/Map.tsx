@@ -381,6 +381,9 @@ iconSize: [16, 16],
       <a href="https://ko-fi.com/pequemaps" target="_blank" rel="noopener noreferrer" style={{ display: 'block', background: '#FCD34D', color: '#111', border: 'none', borderRadius: 20, padding: '8px 16px', fontSize: 12, fontWeight: 700, cursor: 'pointer', textAlign: 'center', textDecoration: 'none' }}>
         ☕ Apóyanos en Ko-fi
       </a>
+      <p style={{ fontSize: 12, color: '#555', lineHeight: 1.6, marginBottom: 5, textAlign: 'center', marginTop: 15 }}>
+        Sugerencias o feedback: <strong>pau@pequemaps.com</strong>
+      </p>
     </div>
   )}
 </div>
