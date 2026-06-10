@@ -36,7 +36,7 @@ export default function EditarInstalaciones({ lugarId, nombreLugar, instalacione
   const [tab, setTab] = useState<'instalaciones' | 'ubicacion' | 'info'>('instalaciones')
   const [direccionEditada, setDireccionEditada] = useState('')
   const [nombreEditado, setNombreEditado] = useState('')
-  const [descripcionEditada, setDescripcionEditada] = useState('')
+  const [detallesEditados, setDetallesEditados] = useState('')
   
 
   function toggleInstalacion(key: string) {
@@ -58,7 +58,7 @@ export default function EditarInstalaciones({ lugarId, nombreLugar, instalacione
         longitud,
         ...(direccionEditada ? { direccion: direccionEditada } : {}),
         ...(nombreEditado ? { nombre: nombreEditado } : {}),
-        ...(descripcionEditada ? { descripcion: descripcionEditada } : {}),
+        ...(detallesEditados ? { detalles: detallesEditados } : {}),
       })
       .eq('id', lugarId)  
 
@@ -178,12 +178,12 @@ export default function EditarInstalaciones({ lugarId, nombreLugar, instalacione
           style={{ width: '100%', border: '1.5px solid #d1d5db', borderRadius: 12, padding: '11px 13px', fontSize: 16, color: '#111', background: '#fff', outline: 'none' }}
         />
         <textarea
-          value={descripcionEditada}
-          onChange={e => setDescripcionEditada(e.target.value)}
-          placeholder="Descripción (opcional)"
+          value={detallesEditados}
+          onChange={e => setDetallesEditados(e.target.value)}
+          placeholder="Detalles extra (ej: piso 2, entrada por calle lateral...)"
           rows={3}
           style={{ width: '100%', border: '1.5px solid #d1d5db', borderRadius: 12, padding: '11px 13px', fontSize: 14, color: '#111', background: '#fff', outline: 'none', resize: 'none' }}
-          />
+        />
         </div>
       )}
             </>

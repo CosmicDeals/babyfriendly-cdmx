@@ -42,6 +42,7 @@ type Lugar = {
   instalaciones?: any[]
   actualizado_en?: string
   creado_en?: string
+  detalles?: string
 }
 
 export default function Map() {
@@ -188,6 +189,9 @@ iconSize: [16, 16],
                   <div style={{ fontWeight: 700, fontSize: 14, color: '#111', marginBottom: 2 }}>{lugar.nombre}</div>
                   <div style={{ fontSize: 12, color: '#111', marginBottom: 6 }}>{lugar.tipo}</div>
                   <div style={{ fontSize: 11, color: '#666', marginBottom: 8 }}>{lugar.direccion}</div>
+                  {lugar.detalles && (
+                  <div style={{ fontSize: 11, color: '#888' }}>{lugar.detalles}</div>
+                )}
                   {lugar.instalaciones?.[0] && (
                     <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6, marginBottom: 8 }}>
                       {lugar.instalaciones[0].cambiador_bebe && (
@@ -423,6 +427,9 @@ iconSize: [16, 16],
           {lugarSeleccionado.instalaciones[0].pet_friendly && <div style={{ display: 'flex', alignItems: 'center', gap: 3, background: '#FFFBEB', borderRadius: 8, padding: '3px 7px', fontSize: 11 }}><span>🐾</span><span style={{ color: '#B45309' }}>Pet friendly</span></div>}
         </div>
       )}
+      {lugarSeleccionado.detalles && (
+  <div style={{ fontSize: 12, color: '#888', marginBottom: 8 }}>{lugarSeleccionado.detalles}</div>
+)}
       <a href={`https://wa.me/?text=${encodeURIComponent(`¡Encontré este lugar kid friendly en PequeMaps! 🌟\n\n*${lugarSeleccionado.nombre}*\n📍 ${lugarSeleccionado.direccion}\n\nEncuéntralo en: https://pequemaps.com`)}`}
       target="_blank"
       rel="noopener noreferrer"
