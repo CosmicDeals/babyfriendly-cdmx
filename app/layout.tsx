@@ -17,7 +17,10 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "PequeMaps",
   description: "Encuentra lugares kid y baby friendly en la Ciudad de México",
-};
+   icons: {
+    icon: '/favicon.svg',
+},
+}
 
 export const viewport = {
   width: 'device-width',
