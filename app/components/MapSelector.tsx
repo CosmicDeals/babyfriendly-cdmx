@@ -2,14 +2,15 @@
 
 import { useState, useEffect } from 'react'
 import dynamic from 'next/dynamic'
-import L from 'leaflet'
 
-const iconoPin = typeof window !== 'undefined' ? L.divIcon({
-  className: '',
-  html: `<div style="font-size:24px;line-height:1;filter:drop-shadow(0 2px 4px rgba(0,0,0,0.3))">📍</div>`,
-  iconSize: [30, 30],
-  iconAnchor: [15, 30],
-}) : undefined
+const iconoPin = typeof window !== 'undefined'
+  ? require('leaflet').divIcon({
+      className: '',
+      html: `<div style="font-size:24px;line-height:1;filter:drop-shadow(0 2px 4px rgba(0,0,0,0.3))">📍</div>`,
+      iconSize: [30, 30],
+      iconAnchor: [15, 30],
+    })
+  : undefined
 
 const MapContainer = dynamic(
   () => import('react-leaflet').then(mod => mod.MapContainer),
