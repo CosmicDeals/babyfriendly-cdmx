@@ -282,7 +282,7 @@ function seleccionarOpcion(opcion: any) {
     <input
       value={detalles}
       onChange={e => setDetalles(e.target.value)}
-      placeholder="Detalles extra (opcional, ej: piso 2)"
+      placeholder="Descripción o detalles extra (opcional)"
       style={{ width: '100%', border: '1.5px solid #d1d5db', borderRadius: 12, padding: '11px 13px', fontSize: 16, color: '#111', background: '#fff', outline: 'none' }}
     />
   </div>
